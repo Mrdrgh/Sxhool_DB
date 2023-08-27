@@ -1,0 +1,8 @@
+- make a program that implements a database of students and teachers
+	- the teachers can add students
+	- the teachers can delete students
+	- the database has all the teachers and students informations
+	- the database include books that the teachers can add and delete
+	- the books can be read by the students , the students can address a teacher and send him a message via the database
+	- the teachers can also send the students messages too
+	- this is a private school , so we will implement a function to see whether if the student has paid the monthly loans
