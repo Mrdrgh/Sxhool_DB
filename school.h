@@ -10,6 +10,7 @@
 #define FETCH_FOR_STRING_ERROR -10
 #define MALLOC_ERROR -11
 #define ASK_STUDENT_INFO_ERROR -12
+#define ASK_TEACHER_INFO_ERROR -13
 #define INIT_STRUCT_STUDENT {NULL, NULL, 0, NULL, NULL, false, NULL, 0, NULL, NULL}
 typedef struct student
 {
@@ -27,11 +28,12 @@ typedef struct student
 
 typedef struct teacher
 {
-	char *name;
-	char *last_name;
+	char name[10];
+	char last_name[10];
 	char birthdate[11];
-	char *CNI;
+	char CNI[8];
 	char password[9];
+	bool is_the_manager;
 	char **inbox;
 	struct teacher *next;
 } teacher;
@@ -55,5 +57,15 @@ student *init_struct_students(student *);
 teacher *init_struct_teachers(teacher *);
 void ask_student_info(student *);
 student *add_stuct_student(student *);
+void student_cli(student *);
+void ask_teacher_info(teacher *);
+
+
+
+
+
+
+
+
 
 #endif

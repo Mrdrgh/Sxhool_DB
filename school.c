@@ -14,6 +14,8 @@ int main(int ac, char **av)
 	s = add_stuct_student(s);
 	if (login(s, NULL, s_t))
 	{
+		if (s_t->s)
+			student_cli(s_t->s);
 		printf("success");
 	}
 	else

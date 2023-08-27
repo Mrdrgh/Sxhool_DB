@@ -75,3 +75,43 @@ student *add_stuct_student(student *s)
 	s = new_student;
 	return (s);
 }
+
+/**
+ * ask_teacher_info - a procedure to ask for the teacher's infos
+ * @t: the teacher
+*/
+void ask_teacher_info(teacher *t)
+{
+	if (!t)
+	{
+		perror("error: ask_teacher_info");
+		exit(ASK_TEACHER_INFO_ERROR);
+	}
+	printf("NAME : ");scanf("%s", t->name);
+	printf("\nLAST NAME : ");scanf("%s", t->last_name);
+	printf("\nBIRTHDAY (dd/mm/yyyy): ");scanf("%s", t->birthdate);
+	printf("\nCNI : ");scanf("%s", t->CNI);
+	printf("\nPASSWORD : ");scanf("%s", t->password);
+	t->is_the_manager = false;
+	print_sleep_clear("ALL DONE ..", 1);
+}
+
+/**
+ * add_struct_teacher - adds a struct of teacher
+ * @t: the newly created struct will be the head of the heap
+ * Return: the newly created struct that is the list
+*/
+teacher *add_struct_teacher(teacher *t)
+{
+	teacher *new_teacher = malloc(sizeof(teacher));
+
+	if (!new_teacher)
+	{
+		perror("error: add_struct_teacher");
+		exit(MALLOC_ERROR);
+	}
+	ask_teacher_info(new_teacher);
+	new_teacher->next = t;
+	t = new_teacher;
+	return (t);
+}

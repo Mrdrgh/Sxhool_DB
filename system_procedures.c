@@ -27,7 +27,8 @@ void print_sleep_clear(const char *prompt, int sleep_duration)
 */
 void pause_clear(void)
 {
-	pause();
+	_pause();
+	fflush(stdout);
 	system("clear");
 }
 
