@@ -11,9 +11,10 @@ bool login(student *s, teacher *t, student_teacher *s_t)
 	int i = 0;
 	printf("1- student\n2- teacher\n--->");
 	scanf("%d", &i);
-	while (i != 1 || i != 2)
+	while (i != 1 && i != 2)
 	{
 		print_sleep_clear("not a type !", 1);
+		scanf("%d", &i);
 	}
 	if (i == 1)
 	{
@@ -39,7 +40,7 @@ bool login(student *s, teacher *t, student_teacher *s_t)
 student *login_student(student *s, student_teacher *s_t)
 {
 	char temp_cne[11];
-	char *pass_wd[9];
+	char pass_wd[9];
 	int i = 0;
 	student *login_struct;
 
@@ -59,7 +60,7 @@ student *login_student(student *s, student_teacher *s_t)
 	i = 0;
 	printf("password : ");
 	scanf("%s", pass_wd);
-	while (strcmp(pass_wd, login_struct) && i < 3)
+	while (strcmp(pass_wd, login_struct->password) && i < 3)
 	{
 		i++;
 		if (i == 3)
@@ -70,4 +71,17 @@ student *login_student(student *s, student_teacher *s_t)
 	}
 	print_sleep_clear("            CONNECTED          ", 1);
 	return (login_struct);
+}
+
+/**
+ * login_teacher - login for the teachers
+ * @t: the teacher struct
+ * @s_t: the union of student or teacher
+ * Return: the found teacher struct , or null if none was found and the user had too many trials
+*/
+
+teacher *login_teacher(teacher *t, student_teacher *s_t)
+{
+	printf("hello");
+	return (NULL);
 }

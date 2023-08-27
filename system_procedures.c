@@ -32,9 +32,9 @@ void pause_clear(void)
 }
 
 /**
- * pause _ this function acts as a pause procedure to wait the user's interaction
+ * _pause _ this function acts as a pause procedure to wait the user's interaction
 */
-void pause(void)
+void _pause(void)
 {
 	printf("tap on any key to continue :");
 	getchar();

@@ -4,29 +4,32 @@
  * init_union - initializes the union
  * @u: the union
 */
-void init_union(student_teacher *s_t)
+student_teacher *init_union(student_teacher *s_t)
 {
 	s_t = malloc(sizeof(student_teacher));
+	return (s_t);
 }
 
 /**
  * init_struct_students - initializes the struct of students
  * @s: the struct
 */
-void init_struct_students(student *s)
+student *init_struct_students(student *s)
 {
 	s = malloc(sizeof(student));
 	s->next = NULL;
+	return (s);
 }
 
 /**
  * init_struct_teachers - initalizes the struct of teachers
  * @t: the teachers struct
 */
-void init_struct_teachers(teacher *t)
+teacher *init_struct_teachers(teacher *t)
 {
 	t = malloc(sizeof(teacher));
 	t->next = NULL;
+	return (t);
 }
 /**
  * ask_student_info - a procedure to ask for the student infos
@@ -45,11 +48,12 @@ void ask_student_info(student *s)
 	printf("\nLAST NAME : ");scanf("%s", s->last_name);
 	printf("\nBIRTH DATE (dd/mm/yyyy) : ");scanf("%s", s->birthdate);
 	printf("\nCNE: ");scanf("%s", s->CNE);
+	printf("\nPASSWORD : ");scanf("%s", s->password);
 	while (i < 4)
 	{
-		printf("\nNOTE %d: ", i);scanf("%0.2f", &s->notes[i++]);
+		printf("\nNOTE %d: ", i);scanf("%f", &s->notes[i++]);
 	}
-	print_sleep_clear("ALL DONE..", 1);
+	print_sleep_clear("\nALL DONE..", 2);
 }
 
 /**
