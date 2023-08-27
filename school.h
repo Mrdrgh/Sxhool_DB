@@ -7,6 +7,8 @@
 #include <stdbool.h>
 
 #define FETCH_FOR_STRING_ERROR -10
+#define MALLOC_ERROR_FOR_STRUCT_STUDENT -11
+#define ASK_STUDENT_INFO_ERROR -12
 #define INIT_STRUCT_STUDENT {NULL, NULL, 0, NULL, NULL, false, NULL, 0, NULL, NULL}
 typedef struct student
 {
@@ -16,8 +18,8 @@ typedef struct student
 	char password[9];
 	char birthdate[11];
 	bool haspaid;
-	size_t notes[4];
-	size_t balance;
+	float notes[4];
+	float balance;
 	char **inbox;
 	struct student *next;
 } student;
