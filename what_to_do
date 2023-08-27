@@ -6,3 +6,15 @@
 	- the books can be read by the students , the students can address a teacher and send him a message via the database
 	- the teachers can also send the students messages too
 	- this is a private school , so we will implement a function to see whether if the student has paid the monthly loans
+
+
+- the teachar cli : 
+  - add a student
+  - access all the students
+  - know information of a student based on its name and modify it
+  - add a book
+  - send messages to principal
+  - send messages to the students , all of them or only one , if one by name
+  - (manager) remove student based on name, remove teacher based on name
+  - (manager) scream to school (send a message to the whole school) or whisper to teachers (send a message only to teachers)
+  

@@ -7,6 +7,8 @@
 student_teacher *init_union(student_teacher *s_t)
 {
 	s_t = malloc(sizeof(student_teacher));
+	s_t->t = NULL;
+	s_t->s = NULL;
 	return (s_t);
 }
 
@@ -61,7 +63,7 @@ void ask_student_info(student *s)
  * @s: the heap
  * Return: in case if return , we return the newly allcated list of structs
 */
-student *add_stuct_student(student *s)
+student *add_struct_student(student *s)
 {
 	student *new_student = malloc(sizeof(student));
 

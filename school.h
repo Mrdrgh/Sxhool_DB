@@ -38,7 +38,7 @@ typedef struct teacher
 	struct teacher *next;
 } teacher;
 
-typedef union student_teacher
+typedef struct student_teacher
 {
 	student *s;
 	teacher *t;
@@ -52,13 +52,17 @@ bool login(student *, teacher *, student_teacher *);
 student *login_student(student *, student_teacher *);
 teacher *login_teacher(teacher *, student_teacher *);
 student *fetch_for_string_student(char *str, student *s);
+teacher *fetch_for_string_teacher(char *str, teacher *t);
 student_teacher *init_union(student_teacher *);
 student *init_struct_students(student *);
 teacher *init_struct_teachers(teacher *);
 void ask_student_info(student *);
-student *add_stuct_student(student *);
-void student_cli(student *);
 void ask_teacher_info(teacher *);
+student *add_struct_student(student *);
+teacher *add_struct_teacher(teacher *);
+void student_cli(student *);
+void teacher_cli(teacher *);
+
 
 
 

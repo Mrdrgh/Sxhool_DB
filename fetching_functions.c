@@ -8,7 +8,18 @@
 */
 teacher *fetch_for_string_teacher(char *str, teacher *t)
 {
+	size_t i = 0;
+	teacher *current = t;
 
+	while (current)
+	{
+		if (strcmp(current->CNI, str) == 0)	
+		{
+			return (current);
+		}
+		current = current->next;
+	}
+	return (NULL);
 }
 
 /**
