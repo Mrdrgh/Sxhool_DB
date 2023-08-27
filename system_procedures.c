@@ -18,6 +18,7 @@ void sleep_clear(int sleep_duration)
 void print_sleep_clear(const char *prompt, int sleep_duration)
 {
 	printf("%s", prompt);
+	fflush(stdout);
 	sleep_clear(sleep_duration);
 }
 

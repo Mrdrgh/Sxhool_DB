@@ -7,7 +7,7 @@
 #include <stdbool.h>
 
 #define FETCH_FOR_STRING_ERROR -10
-#define MALLOC_ERROR_FOR_STRUCT_STUDENT -11
+#define MALLOC_ERROR -11
 #define ASK_STUDENT_INFO_ERROR -12
 #define INIT_STRUCT_STUDENT {NULL, NULL, 0, NULL, NULL, false, NULL, 0, NULL, NULL}
 typedef struct student

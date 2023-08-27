@@ -51,6 +51,7 @@ void ask_student_info(student *s)
 	}
 	print_sleep_clear("ALL DONE..", 1);
 }
+
 /**
  * add_struct_student - adds a struct into the heap of structs
  * @s: the heap
@@ -62,8 +63,8 @@ student *add_stuct_student(student *s)
 
 	if (!new_student)
 	{
-		perror("error: malloc");
-		exit(MALLOC_ERROR_FOR_STRUCT_STUDENT);
+		perror("error: add_struct_student");
+		exit(MALLOC_ERROR);
 	}
 	ask_student_info(new_student);
 	new_student->next = s;
