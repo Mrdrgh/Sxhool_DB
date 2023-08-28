@@ -73,12 +73,13 @@ void principal_cli(teacher **t, teacher **teacher_list, student **s, student **s
 			case 2:
 				list_teacher(NULL, *teacher_list);
 				break;
-			case 5:
-				*teacher_list = add_struct_teacher(teacher_list);
-				break;
 			case 4:
 				*student_list = add_struct_student(student_list);
 				break;
+			case 5:
+				*teacher_list = add_struct_teacher(teacher_list);
+				break;
+
 			default:
 				system("clear");
 		}

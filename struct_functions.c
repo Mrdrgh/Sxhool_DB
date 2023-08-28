@@ -66,12 +66,14 @@ void ask_student_info(student *s)
 	}
 	printf("NAME : ");scanf("%s", s->name);
 	printf("\nLAST NAME : ");scanf("%s", s->last_name);
+	fflush(stdin);
 	printf("\nBIRTH DATE (dd/mm/yyyy) : ");scanf("%s", s->birthdate);
 	printf("\nCNE: ");scanf("%s", s->CNE);
 	printf("\nPASSWORD : ");scanf("%s", s->password);
 	while (i < 4)
 	{
-		printf("\nNOTE %d: ", i);scanf("%f", &s->notes[i++]);
+		printf("\nNOTE %d: ", i);scanf("%f", &s->notes[i]);
+		i++;
 	}
 	print_sleep_clear("\nALL DONE..", 1);
 }
@@ -85,7 +87,7 @@ student *add_struct_student(student **s)
 {
 	student *new_student = malloc(sizeof(student));
 
-	if (!new_student)
+	if (!new_student || !new_student->birthdate)
 	{
 		perror("error: add_struct_student");
 		exit(MALLOC_ERROR);
@@ -188,7 +190,8 @@ void list_student(char *str, student *s)
 		perror("error: list_student: the list is null or empty");
 		exit(NULL_ERROR);
 	}
-	cne:
+while (str)
+{
 	if (!strcmp(str, "no") || *str == 'n')
 	{
 		print_sleep_clear("OUT ..", 1);
@@ -200,6 +203,7 @@ void list_student(char *str, student *s)
 		if (!strcmp(current->CNE, str))
 		{
 			printf("\n---------------------------------\nNAME: %s\nLAST NAME: %s\nBIRTHDAY: %s\n", current->name, current->last_name, current->birthdate);
+			printf("CNE : %s\nPASSWORD : %s\n", current->CNE, current->password);
 			printf("NOTES : %0.1f\t%0.1f\t%0.1f\t%0.1f\n", current->notes[0], current->notes[1], current->notes[2], current->notes[3]);
 			modify_struct_student(current);
 			system("clear");
@@ -209,7 +213,7 @@ void list_student(char *str, student *s)
 	}
 	print_sleep_clear("CNE DOESNT EXIST", 1);
 	str = list_all_students(s);
-	goto cne;
+}
 }
 
 /**
@@ -277,7 +281,7 @@ char *list_all_teachers(teacher *t)
 
 	if (!t)
 	{
-		perror("error: list_all_students: struct may be empty");
+		perror("error: list_all_teachers: struct may be empty");
 		exit(NULL_ERROR);
 	}
 	current = t;
@@ -286,7 +290,7 @@ char *list_all_teachers(teacher *t)
 		printf("_______________________________________\n");
 		if (current->is_the_manager)
 			printf("(PRINCIPAL)\n");
-		printf("NAME : %s\nLAST NAME : %s\nCNE : %s\n", current->name, current->last_name, current->CNI);
+		printf("NAME : %s\nLAST NAME : %s\nCNI : %s\n", current->name, current->last_name, current->CNI);
 		current = current->next;
 	}
 	printf("_______________________________________\n");
@@ -314,7 +318,7 @@ void list_teacher(char *str, teacher *t)
 	}
 	if (!t)
 	{
-		perror("error: list_student: the list is null or empty");
+		perror("error: list_teacher: the list is null or empty");
 		exit(NULL_ERROR);
 	}
 cni:
@@ -329,6 +333,7 @@ cni:
 		if (!strcmp(current->CNI, str))
 		{
 			printf("\n---------------------------------\nNAME: %s\nLAST NAME: %s\nBIRTHDAY: %s\n", current->name, current->last_name, current->birthdate);
+			printf("CNI : %s\nPASSWORD : %s", current->CNI, current->password);
 			modify_struct_teacher(current);
 			system("clear");
 			return;
