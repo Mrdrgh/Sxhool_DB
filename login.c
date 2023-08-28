@@ -9,13 +9,15 @@
 int login(student *s, teacher *t, student_teacher *s_t)
 {
 	int i = 0;
-	printf("1- student\n2- teacher\n--->");
+	printf("1- student\n2- teacher\n3- exit the program\n---> ");
 	scanf("%d", &i);
-	while (i != 1 && i != 2)
+	while (i != 1 && i != 2 && i != 3)
 	{
 		print_sleep_clear("not a type !", 1);
 		scanf("%d", &i);
 	}
+	if (i == 3)
+		return (0);
 	return ((i == 1) ? login_student(s, s_t) : login_teacher(t, s_t));
 }
 

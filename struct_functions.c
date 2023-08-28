@@ -181,7 +181,8 @@ void list_student(char *str, student *s)
 		{
 			printf("\n---------------------------------\nNAME: %s\nLAST NAME: %s\nBIRTHDAY: %s\n", current->name, current->last_name, current->birthdate);
 			printf("NOTES : %0.1f\t%0.1f\t%0.1f\t%0.1f\n", current->notes[0], current->notes[1], current->notes[2], current->notes[3]);
-			pause_clear();
+			modify_struct_student(current);
+			system("clear");
 			return;
 		}
 		current = current->next;
@@ -189,4 +190,54 @@ void list_student(char *str, student *s)
 	print_sleep_clear("CNE DOESNT EXIST", 1);
 	str = list_all_students(s);
 	goto cne;
+}
+/**
+ * modify_struct_student - modifies a student struct , usually to modify its notes
+ * @s: the struct to modify
+*/
+void modify_struct_student(student *s)
+{
+	int i = 0, j = 0;
+	if (!s)
+	{
+		perror("error: modify_struct_student");
+		exit(NULL_ERROR);
+	}
+	printf("\n--> press 1 to modify the infos or 0 to skip : ");scanf("%d", &i);
+	while (i != 1 && i != 0)
+	{
+		printf("NOT A COMMAND");
+		printf("\n--> press 1 to modify the infos or 0 to skip : ");scanf("%d", &i);
+	}
+	if (i)
+	{
+		system("clear");
+again:
+		printf("1- modify all infos\n2- modify notes\n3- modify name and last name\n3-modify CNE\n--->");scanf("%d", &j);
+		switch (j)
+		{
+			case 1:
+				ask_student_info(s);
+				break;
+			case 2:
+				printf("note 1 : ");scanf("%f", &s->notes[0]);
+				printf("note 2 : ");scanf("%f", &s->notes[1]);
+				printf("note 3 : ");scanf("%f", &s->notes[2]);
+				printf("note 4 : ");scanf("%f", &s->notes[3]);
+				print_sleep_clear("ALL DONE ..", 1);
+				break;
+			case 3:
+				printf("name : ");scanf("%s", s->name);
+				printf("last name : ");scanf("%s", s->last_name);
+				break;
+			case 4:
+				printf("CNE : ");scanf("%s", s->CNE);
+				break;
+			default:
+				print_sleep_clear("NOT A COMMAND", 1);
+				goto again;
+		}
+		print_sleep_clear("ALL DONE ..", 1);
+	}
+	return;
 }

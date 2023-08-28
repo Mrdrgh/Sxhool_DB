@@ -67,6 +67,7 @@ void student_cli(student *);
 void teacher_cli(teacher *, student **);
 char *list_all_students(student *);
 void list_student(char *, student *);
+void modify_struct_student(student *);
 
 
 
