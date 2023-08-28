@@ -117,3 +117,75 @@ teacher *add_struct_teacher(teacher *t)
 	t = new_teacher;
 	return (t);
 }
+
+/**
+ * list_all_students - lists all the students by name and CNE
+ * @s: the students struct
+ * Return: waits for the user to type a CNE or a name to list the full details for this
+ * student with the convenable cne , if its not found , output that the student doesn't exist
+ * if the user doesn't want to out_put anything the function returns NULL
+*/
+char *list_all_students(student *s)
+{
+	student *current;
+	char temp_cne_or_name[11];
+
+	if (!s)
+	{
+		perror("error: list_students");
+		exit(NULL_ERROR);
+	}
+	current = s;
+	while (current)
+	{
+		printf("_______________________________________\n");
+		printf("NAME : %s\nLAST NAME : %s\nCNE : %s\n", current->name, current->last_name, current->birthdate);
+	}
+	printf("_______________________________________\n");
+	printf("type the CNE of the student to show more details of, or type \"no\" or 'n' : ");
+	scanf("%s", temp_cne_or_name);
+	return ((!strcmp(temp_cne_or_name, "no") || *temp_cne_or_name == 'n') ? NULL : temp_cne_or_name);
+}
+
+/**
+ * list_student - this function takes a string as CNE or (name in the future) and lists the whole details of the
+ * wanted student ,  or output an error if no student was found, if NULL exists, the function returns
+ * @str: the string as CNE to look for, if its NULL in the args the function will call list_students all
+ * @s: the students struct
+*/
+void list_student(char *str, student *s)
+{
+	student *current;
+
+	if (!str)
+		str = list_all_students(s);
+	if (!str)
+		return;
+	if (!s)
+	{
+		perror("error: list_student");
+		exit(NULL_ERROR);
+	}
+	cne:
+	if (!strcmp(str, "no") || *str == 'n')
+	{
+		print_sleep_clear("OUT ..", 1);
+		return;
+	}
+	current = s;
+	while (current)
+	{
+		if (!strcmp(current->CNE, str))
+		{
+			printf("\n---------------------------------\nNAME: %s\nLAST NAME: %s\nBIRTHDAY: %s\n", current->name, current->last_name, current->birthdate);
+			printf("NOTES : %0.1f\t%0.1f\t%0.1f\t%0.1f", current->notes[0], current->notes[1], current->notes[2], current->notes[3]);
+			pause_clear();
+			return;
+		}
+		current = current->next;
+	}
+	print_sleep_clear("CNE DOESNT EXIST", 1);
+	printf("type the CNE of the student to show more details of, or type \"no\" or 'n' : ");
+	scanf("%s", str);
+	goto cne;
+}

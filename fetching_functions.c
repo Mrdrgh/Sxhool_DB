@@ -9,8 +9,14 @@
 teacher *fetch_for_string_teacher(char *str, teacher *t)
 {
 	size_t i = 0;
-	teacher *current = t;
+	teacher *current;
 
+	if (!t)
+	{
+		perror("error: fetch_for_string_teacher");
+		exit(NULL_ERROR);
+	}
+	current = t;
 	while (current)
 	{
 		if (strcmp(current->CNI, str) == 0)	
@@ -30,8 +36,14 @@ teacher *fetch_for_string_teacher(char *str, teacher *t)
 student *fetch_for_string_student(char *str, student *s)
 {
 	size_t i = 0;
-	student *current = s;
+	student *current;
 
+	if (!s)
+	{
+		perror("error: fetch_for_string_student");
+		exit(NULL_ERROR);
+	}
+	current = s;
 	while (current)
 	{
 		if (strcmp(current->CNE, str) == 0)	

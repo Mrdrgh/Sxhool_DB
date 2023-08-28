@@ -34,9 +34,14 @@ void teacher_cli(teacher *t)
 		printf("---------- Mr Principal : %s %s -------------\n", t->name, t->last_name);
 	else
 		printf("---------- Teacher : %s %s --------------\n", t->name, t->last_name);
-	while (out != 4)
+	while (out != 10)
 	{
-		printf("1- show the students DB\n2- show the teachers DB\n3- messaging commands\n4- dissconnect\n---> ");
+		printf("1- show the students DB\n2- show the teachers DB\n3- messaging commands\n5- add a student");
+		printf("\n6- delete a student by CNE\n10- disconnect\n---> ");
 		scanf("%d", &out);
+		if (out != 10)
+		{
+			pause_clear();
+		}
 	}
 }

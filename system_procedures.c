@@ -27,6 +27,7 @@ void print_sleep_clear(const char *prompt, int sleep_duration)
 */
 void pause_clear(void)
 {
+	getchar();
 	_pause();
 	fflush(stdout);
 	system("clear");
@@ -37,6 +38,6 @@ void pause_clear(void)
 */
 void _pause(void)
 {
-	printf("tap on any key to continue :");
+	printf("tap on enter to continue :");
 	getchar();
 }

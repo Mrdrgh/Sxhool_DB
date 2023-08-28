@@ -11,6 +11,7 @@
 #define MALLOC_ERROR -11
 #define ASK_STUDENT_INFO_ERROR -12
 #define ASK_TEACHER_INFO_ERROR -13
+#define NULL_ERROR -14
 #define INIT_STRUCT_STUDENT {NULL, NULL, 0, NULL, NULL, false, NULL, 0, NULL, NULL}
 typedef struct student
 {

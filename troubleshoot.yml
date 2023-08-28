@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <sys/wait.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <stdlib.h>
+void sleep_clear(int sleep_duration)
+{
+	sleep(sleep_duration);
+	system("clear");
+}
+void print_sleep_clear(const char *prompt, int sleep_duration)
+{
+	printf("%s", prompt);
+	sleep_clear(sleep_duration);
+}
+void _pause(void)
+{
+	printf("tap on any key to continue :");
+	getchar();
+}
+void pause_clear(void)
+{
+	_pause();
+	fflush(stdout);
+	system("clear");
+}
+int main(void)
+{
+	pause_clear();
+	return (0);
+}
