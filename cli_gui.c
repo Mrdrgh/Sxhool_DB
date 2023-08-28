@@ -27,7 +27,7 @@ void student_cli(student *s)
  * teacher_cli - a command interface for teachers and the principale
  * @t: the teacher struct
 */
-void teacher_cli(teacher *t)
+void teacher_cli(teacher *t, student **s)
 {
 	int out = 1;
 	if (t->is_the_manager)
@@ -39,9 +39,16 @@ void teacher_cli(teacher *t)
 		printf("1- show the students DB\n2- show the teachers DB\n3- messaging commands\n5- add a student");
 		printf("\n6- delete a student by CNE\n10- disconnect\n---> ");
 		scanf("%d", &out);
-		if (out != 10)
+		switch (out)
 		{
-			pause_clear();
+			case 1:
+				list_student(NULL, *s);
+				break;
+			case 5:
+				*s = add_struct_student(s);
+				break;
+			default:
+				system("clear");
 		}
 	}
 }

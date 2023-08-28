@@ -38,7 +38,7 @@ student *fetch_for_string_student(char *str, student *s)
 	size_t i = 0;
 	student *current;
 
-	if (!s)
+	if (!s || !str)
 	{
 		perror("error: fetch_for_string_student");
 		exit(NULL_ERROR);

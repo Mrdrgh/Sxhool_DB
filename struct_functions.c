@@ -6,9 +6,7 @@
 */
 student_teacher *init_union(student_teacher *s_t)
 {
-	s_t = malloc(sizeof(student_teacher));
-	s_t->t = NULL;
-	s_t->s = NULL;
+	s_t = IS_NONE;
 	return (s_t);
 }
 
@@ -19,7 +17,7 @@ student_teacher *init_union(student_teacher *s_t)
 student *init_struct_students(student *s)
 {
 	s = malloc(sizeof(student));
-	s->next = NULL;
+	s = NULL;
 	return (s);
 }
 
@@ -30,7 +28,7 @@ student *init_struct_students(student *s)
 teacher *init_struct_teachers(teacher *t)
 {
 	t = malloc(sizeof(teacher));
-	t->next = NULL;
+	t = NULL;
 	return (t);
 }
 /**
@@ -55,7 +53,7 @@ void ask_student_info(student *s)
 	{
 		printf("\nNOTE %d: ", i);scanf("%f", &s->notes[i++]);
 	}
-	print_sleep_clear("\nALL DONE..", 2);
+	print_sleep_clear("\nALL DONE..", 1);
 }
 
 /**
@@ -63,7 +61,7 @@ void ask_student_info(student *s)
  * @s: the heap
  * Return: in case if return , we return the newly allcated list of structs
 */
-student *add_struct_student(student *s)
+student *add_struct_student(student **s)
 {
 	student *new_student = malloc(sizeof(student));
 
@@ -73,9 +71,9 @@ student *add_struct_student(student *s)
 		exit(MALLOC_ERROR);
 	}
 	ask_student_info(new_student);
-	new_student->next = s;
-	s = new_student;
-	return (s);
+	new_student->next = *s;
+	*s = new_student;
+	return (*s);
 }
 
 /**
@@ -103,7 +101,7 @@ void ask_teacher_info(teacher *t)
  * @t: the newly created struct will be the head of the heap
  * Return: the newly created struct that is the list
 */
-teacher *add_struct_teacher(teacher *t)
+teacher *add_struct_teacher(teacher **t)
 {
 	teacher *new_teacher = malloc(sizeof(teacher));
 
@@ -113,9 +111,9 @@ teacher *add_struct_teacher(teacher *t)
 		exit(MALLOC_ERROR);
 	}
 	ask_teacher_info(new_teacher);
-	new_teacher->next = t;
-	t = new_teacher;
-	return (t);
+	new_teacher->next = *t;
+	*t = new_teacher;
+	return (*t);
 }
 
 /**
@@ -132,14 +130,15 @@ char *list_all_students(student *s)
 
 	if (!s)
 	{
-		perror("error: list_students");
+		perror("error: list_all_students: struct may be empty");
 		exit(NULL_ERROR);
 	}
 	current = s;
 	while (current)
 	{
 		printf("_______________________________________\n");
-		printf("NAME : %s\nLAST NAME : %s\nCNE : %s\n", current->name, current->last_name, current->birthdate);
+		printf("NAME : %s\nLAST NAME : %s\nCNE : %s\n", current->name, current->last_name, current->CNE);
+		current = current->next;
 	}
 	printf("_______________________________________\n");
 	printf("type the CNE of the student to show more details of, or type \"no\" or 'n' : ");
@@ -160,10 +159,13 @@ void list_student(char *str, student *s)
 	if (!str)
 		str = list_all_students(s);
 	if (!str)
+	{
+		print_sleep_clear("OUT ..", 1);
 		return;
+	}
 	if (!s)
 	{
-		perror("error: list_student");
+		perror("error: list_student: the list is null or empty");
 		exit(NULL_ERROR);
 	}
 	cne:
@@ -178,14 +180,13 @@ void list_student(char *str, student *s)
 		if (!strcmp(current->CNE, str))
 		{
 			printf("\n---------------------------------\nNAME: %s\nLAST NAME: %s\nBIRTHDAY: %s\n", current->name, current->last_name, current->birthdate);
-			printf("NOTES : %0.1f\t%0.1f\t%0.1f\t%0.1f", current->notes[0], current->notes[1], current->notes[2], current->notes[3]);
+			printf("NOTES : %0.1f\t%0.1f\t%0.1f\t%0.1f\n", current->notes[0], current->notes[1], current->notes[2], current->notes[3]);
 			pause_clear();
 			return;
 		}
 		current = current->next;
 	}
 	print_sleep_clear("CNE DOESNT EXIST", 1);
-	printf("type the CNE of the student to show more details of, or type \"no\" or 'n' : ");
-	scanf("%s", str);
+	str = list_all_students(s);
 	goto cne;
 }

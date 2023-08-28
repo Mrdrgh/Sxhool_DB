@@ -1,8 +1,42 @@
 #include <stdio.h>
 #include <sys/wait.h>
 #include <fcntl.h>
+#include <stdbool.h>
 #include <unistd.h>
 #include <stdlib.h>
+typedef struct student
+{
+	char name[10];
+	char last_name[10];
+	char CNE[11];
+	char password[9];
+	char birthdate[11];
+	bool haspaid;
+	float notes[4];
+	float balance;
+	char **inbox;
+	struct student *next;
+} student;
+void ask_student_info(student *s)
+{
+	int i = 0;
+
+	if (!s)
+	{
+		perror("error: ask_student_info (null) is found");
+		exit(11);
+	}
+	printf("NAME : ");scanf("%s", s->name);
+	printf("\nLAST NAME : ");scanf("%s", s->last_name);
+	printf("\nBIRTH DATE (dd/mm/yyyy) : ");scanf("%s", s->birthdate);
+	printf("\nCNE: ");scanf("%s", s->CNE);
+	printf("\nPASSWORD : ");scanf("%s", s->password);
+	while (i < 4)
+	{
+		printf("\nNOTE %d: ", i);scanf("%f", &s->notes[i++]);
+	}
+	print_sleep_clear("\nALL DONE..", 1);
+}
 void sleep_clear(int sleep_duration)
 {
 	sleep(sleep_duration);
@@ -24,8 +58,36 @@ void pause_clear(void)
 	fflush(stdout);
 	system("clear");
 }
+student *init_struct_students(student *s)
+{
+	s = malloc(sizeof(student));
+	s = NULL;
+	return (s);
+}
+student *add_struct_student(student *s)
+{
+	student *new_student = malloc(sizeof(student));
+
+	if (!new_student)
+	{
+		perror("error: add_struct_student");
+		exit(1);
+	}
+	ask_student_info(new_student);
+	new_student->next = s;
+	s = new_student;
+	return (s);
+}
 int main(void)
 {
-	pause_clear();
+	student *s = init_struct_students(s);
+	s = add_struct_student(s);
+	s = add_struct_student(s);
+	student *current = s;
+	while (current)
+	{
+		printf("%s \t %s \n", current->name, current->last_name);
+		current = current->next;
+	}
 	return (0);
 }
