@@ -79,7 +79,7 @@ void list_student(char *, student *);
 void list_teacher(char *, teacher *);
 void modify_struct_student(student *);
 void modify_struct_teacher(teacher *);
-
+void delete_student_struct(student **);
 
 
 

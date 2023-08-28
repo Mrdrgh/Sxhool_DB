@@ -389,3 +389,69 @@ againn:
 	}
 	return;
 }
+
+
+/**
+ * delete_student_struct - deletes a student struct
+ * @s: the student struct
+*/
+
+void delete_student_struct(student **s)
+{
+    char temp_cne[11];
+    student *current, *prev;
+
+    if (!s)
+    {
+        perror("error: delete_student_struct: struct may be empty");
+        exit(NULL_ERROR);
+    }
+againnn:
+    printf("input the student CNE to delete from the platform, or type \"no\" or 'n' to return : ");
+    scanf("%s", temp_cne);
+    if (!strcmp(temp_cne, "no") || *temp_cne == 'n')
+        return;
+
+    // If head node itself holds the key to be deleted
+    if (*s != NULL && strcmp((*s)->CNE, temp_cne) == 0)
+    {
+        printf("found, are you sure to delete this student from the platform ? [Y, n] : ");
+        scanf("%s", temp_cne);
+        if (!strcmp(temp_cne, "no") || *temp_cne == 'n')
+        {
+            print_sleep_clear("CANCELLED ..", 1);
+            return;
+        }
+        current = *s; // Changed head
+        *s = (*s)->next; // Changed head
+        free(current); // free old head
+        print_sleep_clear("DELETED ! ", 1);
+        return;
+    }
+
+    // Search for the key to be deleted, keep track of the previous node as we need to change 'prev->next'
+    prev = NULL;
+    current = *s;
+    while (current != NULL && strcmp(current->CNE, temp_cne) != 0)
+    {
+        prev = current;
+        current = current->next;
+    }
+
+    // If key was not present in linked list
+    if (current == NULL) goto againnn;
+
+    printf("found, are you sure to delete this student from the platform ? [Y, n] : ");
+    scanf("%s", temp_cne);
+    if (!strcmp(temp_cne, "no") || *temp_cne == 'n')
+    {
+        print_sleep_clear("CANCELLED ..", 1);
+        return;
+    }
+
+    // Unlink the node from linked list
+    prev->next = current->next;
+
+    free(current); // Free memory
+    print_sleep_clear("DELETED ! ", 1);
+}

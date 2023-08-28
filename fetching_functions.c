@@ -29,7 +29,7 @@ teacher *fetch_for_string_teacher(char *str, teacher *t)
 }
 
 /**
- * fetch_for_string_student - fetches for string in student struct
+ * fetch_for_string_student - fetches for CNE in student struct
  * @str: the str to look for
  * @s: the struct
 */
