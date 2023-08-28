@@ -9,16 +9,21 @@
 int main(int ac, char **av)
 {
 	student *s = init_struct_students(s);
-	student_teacher *s_t = init_union(s_t); // by default in ISNONE//
+	login_return *s_t = init_union(s_t); // by default in ISNONE//
 	teacher *t = init_struct_teachers(t);
 	int i = 0;
 
-	while (i = login(s, t, s_t))
+	while ((s_t = login(s, t, s_t))->student_or_teacher)
 	{
-		if (i == 1)
-			student_cli(s);
-		else if (i == 2)
-			teacher_cli(&t, &s);
+		if (s_t->student_or_teacher == 1)
+			student_cli(s_t->s);
+		else if (s_t->student_or_teacher == 2)
+		{
+			if (s_t->t->is_the_manager)
+				principal_cli(&(s_t)->t, &t, &(s_t)->s, &s);
+			else
+				teacher_cli(&(s_t)->t, &(s_t)->s, &s);
+		}
 		else
 		{
 			perror("error: main loop");

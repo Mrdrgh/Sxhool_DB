@@ -47,16 +47,23 @@ IS_STUDENT,
 IS_TEACHER
 } student_teacher;
 
+typedef struct login_return
+{
+	student_teacher student_or_teacher;
+	student *s;
+	teacher *t;
+} login_return;
+
 void sleep_clear(int sleep_duration);
 void print_sleep_clear(const char *prompt, int sleep_duration);
 void pause_clear();
 void _pause();
-int login(student *, teacher *, student_teacher *);
-int login_student(student *, student_teacher *);
-int login_teacher(teacher *, student_teacher *);
+login_return *login(student *, teacher *, login_return *);
+student *login_student(student *);
+teacher *login_teacher(teacher *);
 student *fetch_for_string_student(char *str, student *s);
 teacher *fetch_for_string_teacher(char *str, teacher *t);
-student_teacher *init_union(student_teacher *);
+login_return *init_union(login_return *);
 student *init_struct_students(student *);
 teacher *init_struct_teachers(teacher *);
 void ask_student_info(student *);
@@ -64,7 +71,8 @@ void ask_teacher_info(teacher *);
 student *add_struct_student(student **);
 teacher *add_struct_teacher(teacher **);
 void student_cli(student *);
-void teacher_cli(teacher **, student **);
+void teacher_cli(teacher **, student **, student **);
+void principal_cli(teacher **, teacher **, student **, student **);
 char *list_all_students(student *);
 char *list_all_teachers(teacher *);
 void list_student(char *, student *);

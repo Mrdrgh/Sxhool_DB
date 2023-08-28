@@ -4,9 +4,17 @@
  * init_union - initializes the union
  * @u: the union
 */
-student_teacher *init_union(student_teacher *s_t)
+login_return *init_union(login_return *s_t)
 {
-	s_t = IS_NONE;
+	s_t = malloc(sizeof(login_return));
+	if (!s_t)
+	{
+		perror("error: init_union");
+		exit(MALLOC_ERROR);
+	}
+	s_t->s = NULL;
+	s_t->t = NULL;
+	s_t->student_or_teacher = IS_NONE;
 	return (s_t);
 }
 

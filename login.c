@@ -6,9 +6,11 @@
  * Return: true or false
 */
 
-int login(student *s, teacher *t, student_teacher *s_t)
+login_return *login(student *s, teacher *t, login_return *s_t)
 {
 	int i = 0;
+	student *place_h_s;
+	teacher *place_h_t;
 	printf("1- student\n2- teacher\n3- exit the program\n---> ");
 	scanf("%d", &i);
 	while (i != 1 && i != 2 && i != 3)
@@ -17,8 +19,44 @@ int login(student *s, teacher *t, student_teacher *s_t)
 		scanf("%d", &i);
 	}
 	if (i == 3)
-		return (0);
-	return ((i == 1) ? login_student(s, s_t) : login_teacher(t, s_t));
+	{
+		s_t->student_or_teacher = IS_NONE;
+		return (s_t);
+	}
+	if (i == 1)
+	{
+		place_h_s = login_student(s);
+		if (place_h_s)
+		{
+			s_t->s = place_h_s;
+			s_t->t = NULL;
+			s_t->student_or_teacher = IS_STUDENT;
+		}
+		else
+		{
+			s_t->s = NULL;
+			s_t->t = NULL;
+			s_t->student_or_teacher = IS_NONE;
+		}
+		return (s_t);
+	}
+	else
+	{
+		place_h_t = login_teacher(t);
+		if (place_h_t)
+		{
+			s_t->t = place_h_t;
+			s_t->s = NULL;
+			s_t->student_or_teacher = IS_TEACHER;
+		}
+		else
+		{
+			s_t->s = NULL;
+			s_t->t = NULL;
+			s_t->student_or_teacher = IS_NONE;
+		}
+		return (s_t);
+	}
 }
 
 /**
@@ -27,7 +65,7 @@ int login(student *s, teacher *t, student_teacher *s_t)
  * Return: true or false
 */
 
-int login_student(student *s, student_teacher *s_t)
+student *login_student(student *s)
 {
 	char temp_cne[11];
 	char pass_wd[9];
@@ -42,7 +80,7 @@ int login_student(student *s, student_teacher *s_t)
 	{
 		i++;
 		if (i == 3)
-			return (IS_NONE);
+			return (NULL);
 		print_sleep_clear("NO MATCH FOUND !, reENTER CNE", 2);
 		printf("%d trials left\nCNE : ", 3 - i);scanf("%s", temp_cne);
 		login_struct = fetch_for_string_student(temp_cne, s);
@@ -54,13 +92,13 @@ int login_student(student *s, student_teacher *s_t)
 	{
 		i++;
 		if (i == 3)
-			return (IS_NONE);
+			return (NULL);
 		print_sleep_clear("WRONG PASSWORD..", 1);
 		printf("%d trials left\npassword : ", 3 - i);
 		scanf("%s", pass_wd);
 	}
 	print_sleep_clear("            CONNECTED          ", 1);
-	return (IS_STUDENT);
+	return (login_struct);
 }
 
 /**
@@ -70,7 +108,7 @@ int login_student(student *s, student_teacher *s_t)
  * Return: the found teacher struct , or null if none was found and the user had too many trials
 */
 
-int login_teacher(teacher *t, student_teacher *s_t)
+teacher *login_teacher(teacher *t)
 {
 	char temp_cne[11];
 	char pass_wd[9];
@@ -85,7 +123,7 @@ int login_teacher(teacher *t, student_teacher *s_t)
 	{
 		i++;
 		if (i == 3)
-			return (IS_NONE);
+			return (NULL);
 		print_sleep_clear("NO MATCH FOUND !, REENTER CNE", 2);
 		printf("%d trials left\nCNE : ", 3 - i);scanf("%s", temp_cne);
 		login_struct = fetch_for_string_teacher(temp_cne, t);
@@ -97,7 +135,7 @@ int login_teacher(teacher *t, student_teacher *s_t)
 	{
 		i++;
 		if (i == 3)
-			return (IS_NONE);
+			return (NULL);
 		print_sleep_clear("WRONG PASSWORD..", 1);
 		printf("%d trials left\npassword : ", 3 - i);
 		scanf("%s", pass_wd);
@@ -107,5 +145,5 @@ int login_teacher(teacher *t, student_teacher *s_t)
 		print_sleep_clear("CONNECTED , WELCOME BOSS", 1);
 	else
 		print_sleep_clear("            CONNECTED          ", 1);
-	return (IS_TEACHER);
+	return (login_struct);
 }
