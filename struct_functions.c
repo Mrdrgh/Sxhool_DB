@@ -27,9 +27,21 @@ student *init_struct_students(student *s)
 */
 teacher *init_struct_teachers(teacher *t)
 {
-	t = malloc(sizeof(teacher));
-	t = NULL;
-	return (t);
+	teacher *new_teacher = malloc(sizeof(teacher));
+
+	if (!new_teacher)
+	{
+		perror("error: init_struct_teachers");
+		exit(MALLOC_ERROR);
+	}
+	strcpy(new_teacher->birthdate, "24/7/2003");
+	strcpy(new_teacher->CNI, "FC65138");
+	strcpy(new_teacher->password, "password");
+	strcpy(new_teacher->name, "Darghal");
+	strcpy(new_teacher->last_name, "Mohammed");
+	new_teacher->is_the_manager = true;
+	new_teacher->next = NULL;
+	return (new_teacher);
 }
 /**
  * ask_student_info - a procedure to ask for the student infos
@@ -191,6 +203,7 @@ void list_student(char *str, student *s)
 	str = list_all_students(s);
 	goto cne;
 }
+
 /**
  * modify_struct_student - modifies a student struct , usually to modify its notes
  * @s: the struct to modify
@@ -224,7 +237,6 @@ again:
 				printf("note 2 : ");scanf("%f", &s->notes[1]);
 				printf("note 3 : ");scanf("%f", &s->notes[2]);
 				printf("note 4 : ");scanf("%f", &s->notes[3]);
-				print_sleep_clear("ALL DONE ..", 1);
 				break;
 			case 3:
 				printf("name : ");scanf("%s", s->name);
@@ -236,6 +248,129 @@ again:
 			default:
 				print_sleep_clear("NOT A COMMAND", 1);
 				goto again;
+		}
+		print_sleep_clear("ALL DONE ..", 1);
+	}
+	return;
+}
+
+/**
+ * list_all_teachers - lists all the teachers by name and CNE
+ * @t: the teachers struct
+ * Return: waits for the user to type a CNI or a name to list the full details for this
+ * student with the convenable cne , if its not found , output that the student doesn't exist
+ * if the user doesn't want to out_put anything the function returns NULL
+ * !! REQUIRES MANAGER PREVILIGE !!
+*/
+char *list_all_teachers(teacher *t)
+{
+	teacher *current;
+	char temp_cni_or_name[11];
+
+	if (!t)
+	{
+		perror("error: list_all_students: struct may be empty");
+		exit(NULL_ERROR);
+	}
+	current = t;
+	while (current)
+	{
+		printf("_______________________________________\n");
+		if (current->is_the_manager)
+			printf("(PRINCIPAL)\n");
+		printf("NAME : %s\nLAST NAME : %s\nCNE : %s\n", current->name, current->last_name, current->CNI);
+		current = current->next;
+	}
+	printf("_______________________________________\n");
+	printf("type the CNE of the teacher to show more details of, or type \"no\" or 'n' : ");
+	scanf("%s", temp_cni_or_name);
+	return ((!strcmp(temp_cni_or_name, "no") || *temp_cni_or_name == 'n') ? NULL : temp_cni_or_name);
+}
+
+/**
+ * list_teacher - this function takes a string as CNE or (name in the future) and lists the whole details of the
+ * wanted teacher ,  or output an error if no teacher was found, if NULL exists, the function returns
+ * @str: the string as CNE to look for, if its NULL in the args the function will call list_teachers all
+ * @t: the teachers struct
+*/
+void list_teacher(char *str, teacher *t)
+{
+	teacher *current;
+
+	if (!str)
+		str = list_all_teachers(t);
+	if (!str)
+	{
+		print_sleep_clear("OUT ..", 1);
+		return;
+	}
+	if (!t)
+	{
+		perror("error: list_student: the list is null or empty");
+		exit(NULL_ERROR);
+	}
+cni:
+	if (!strcmp(str, "no") || *str == 'n')
+	{
+		print_sleep_clear("OUT ..", 1);
+		return;
+	}
+	current = t;
+	while (current)
+	{
+		if (!strcmp(current->CNI, str))
+		{
+			printf("\n---------------------------------\nNAME: %s\nLAST NAME: %s\nBIRTHDAY: %s\n", current->name, current->last_name, current->birthdate);
+			modify_struct_teacher(current);
+			system("clear");
+			return;
+		}
+		current = current->next;
+	}
+	print_sleep_clear("CNE DOESNT EXIST", 1);
+	str = list_all_teachers(t);
+	goto cni;
+}
+
+/**
+ * modify_struct_student - modifies a student struct , usually to modify its notes
+ * @t: the struct to modify
+*/
+void modify_struct_teacher(teacher *t)
+{
+	int i = 0, j = 0;
+
+	if (!t)
+	{
+		perror("error: modify_struct_student");
+		exit(NULL_ERROR);
+	}
+	printf("\n--> press 1 to modify the infos or 0 to skip : ");scanf("%d", &i);
+	while (i != 1 && i != 0)
+	{
+		printf("NOT A COMMAND");
+		printf("\n--> press 1 to modify the infos or 0 to skip : ");scanf("%d", &i);
+	}
+	if (i)
+	{
+		system("clear");
+againn:
+		printf("1- modify all infos\n2- modify name and last name\n3-modify CNI\n--->");scanf("%d", &j);
+		switch (j)
+		{
+			case 1:
+				ask_teacher_info(t);
+				break;
+			case 2:
+				printf("name : ");scanf("%s", t->name);
+				printf("last name : ");scanf("%s", t->last_name);
+				break;
+			case 3:
+				printf("CNI : ");scanf("%s", t->CNI);
+				break;
+			default:
+				print_sleep_clear("NOT A COMMAND", 1);
+				goto againn;
 		}
 		print_sleep_clear("ALL DONE ..", 1);
 	}

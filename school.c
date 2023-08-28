@@ -10,16 +10,15 @@ int main(int ac, char **av)
 {
 	student *s = init_struct_students(s);
 	student_teacher *s_t = init_union(s_t); // by default in ISNONE//
-	teacher manager = {"darghal", "mohammed",
-	"24/7/2003", "FC65138", "password", true, NULL, NULL};
+	teacher *t = init_struct_teachers(t);
 	int i = 0;
 
-	while (i = login(s, &manager, s_t))
+	while (i = login(s, t, s_t))
 	{
 		if (i == 1)
 			student_cli(s);
 		else if (i == 2)
-			teacher_cli(&manager, &s);
+			teacher_cli(&t, &s);
 		else
 		{
 			perror("error: main loop");

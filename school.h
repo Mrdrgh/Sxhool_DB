@@ -64,10 +64,13 @@ void ask_teacher_info(teacher *);
 student *add_struct_student(student **);
 teacher *add_struct_teacher(teacher **);
 void student_cli(student *);
-void teacher_cli(teacher *, student **);
+void teacher_cli(teacher **, student **);
 char *list_all_students(student *);
+char *list_all_teachers(teacher *);
 void list_student(char *, student *);
+void list_teacher(char *, teacher *);
 void modify_struct_student(student *);
+void modify_struct_teacher(teacher *);
 
 
 
