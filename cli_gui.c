@@ -28,7 +28,7 @@ void student_cli(student *s)
  * teacher_cli - a command interface for teachers and the principale
  * @t: the teacher struct
 */
-void teacher_cli(teacher **t, student **s, student **student_list)
+void teacher_cli(teacher **t, teacher **teacher_list, student **s, student **student_list)
 {
 	int out = 1;
 
@@ -44,6 +44,9 @@ void teacher_cli(teacher **t, student **s, student **student_list)
 		{
 			case 1:
 				list_student(NULL, *student_list);
+				break;
+			case 2:
+				teacher_messaging_cli(t, teacher_list, student_list);
 				break;
 			case 5:
 				*student_list = add_struct_student(student_list);

@@ -13,6 +13,7 @@
 #define ASK_TEACHER_INFO_ERROR 13
 #define NULL_ERROR 14
 #define MAIN_ERROR 15
+#define NOT_FOUND_ERROR 16
 #define INIT_STRUCT_STUDENT {NULL, NULL, 0, NULL, NULL, false, NULL, 0, NULL, NULL}
 typedef struct student
 {
@@ -73,7 +74,7 @@ void ask_teacher_info(teacher *);
 student *add_struct_student(student **);
 teacher *add_struct_teacher(teacher **);
 void student_cli(student *);
-void teacher_cli(teacher **, student **, student **);
+void teacher_cli(teacher **, teacher **, student **, student **);
 void principal_cli(teacher **, teacher **, student **, student **);
 char *list_all_students(student *);
 char *list_all_teachers(teacher *);
@@ -86,7 +87,9 @@ void scream_to_school(teacher **, teacher **, student **, student **);
 void whisper_to_teachers(teacher **teacher_list, teacher **t);
 void send_msg_to_student(student **student_list, teacher **t);
 void send_msg_to_teacher(teacher **teacher_list, teacher **t);
+void send_msg_to_principal(teacher **teacher_list, teacher **t);
 void principal_messaging_cli(teacher **, teacher **, student **);
+void teacher_messaging_cli(teacher **, teacher **, student **);
 void students_inbox(student *);
 void teachers_inbox(teacher *);
 

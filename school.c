@@ -23,7 +23,7 @@ int main(int ac, char **av)
 			if (s_t->t->is_the_manager)
 				principal_cli(&(s_t)->t, &t, &(s_t)->s, &s);
 			else
-				teacher_cli(&(s_t)->t, &(s_t)->s, &s);
+				teacher_cli(&(s_t)->t, &t, &(s_t)->s, &s);
 		}
 		else
 		{

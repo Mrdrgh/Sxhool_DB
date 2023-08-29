@@ -184,6 +184,11 @@ againn:
 		print_sleep_clear("CANCELLED", 1);
 		return;
 	}
+	if (!strcmp(temp_cni, "FC65138"))
+	{
+		print_sleep_clear("NOT ON THIS COMMAND, TRY COMMAND 3", 2);
+		return;
+	}
 	printf("The message : ");
 	while ((c = getchar()) != '\n' && c != EOF) { }
 	getline(&message, &i, stdin);
@@ -203,4 +208,43 @@ againn:
 	}
 	print_sleep_clear("CNE NOT EXISTING", 1);
 	goto againn;
+}
+
+/**
+ * send_msg_to_principal - sends a message to the principal, only for teachers
+ * @t: the teacher struct
+ * @teacher_list: the teachrs list
+*/
+
+void send_msg_to_principal(teacher **teacher_list, teacher **t)
+{
+	char sender[200], c, *message = NULL;
+	size_t i = 0;
+	teacher *current;
+
+	if (!(*teacher_list)->next || !*t)
+	{
+		perror("error: send_msg_to_principal: teacher struct is null");
+		exit(NULL_ERROR);
+	}
+	system("clear");
+	current = *teacher_list;
+	sprintf(sender, "(Teacher) %s %s: ", (*t)->name, (*t)->last_name);
+	printf("input the message to send to the principal : ");
+	while ((c = getchar()) != '\n' && c != EOF) { }
+	getline(&message, &i, stdin);
+	while (current)
+	{
+		if (current->is_the_manager)
+		{
+			current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
+			current->inbox = realloc(current->inbox, ((current->inbox_sz) + 1) * sizeof(char *));
+			current->inbox_sz++;
+			print_sleep_clear("MESSAGE SENT", 1);
+			return;
+		}
+		current = current->next;
+	}
+	perror("error: send_msg_principal : principal not found");
+	exit(NOT_FOUND_ERROR);
 }
