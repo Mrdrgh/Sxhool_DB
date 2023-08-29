@@ -7,7 +7,7 @@
 void student_cli(student *s)
 {
 	int out = 1;
-
+	students_inbox(s);
 	while (out != 2)
 	{
 		printf("----------- Student : %s %s ----------\n", s->name, s->last_name);
@@ -32,6 +32,7 @@ void teacher_cli(teacher **t, student **s, student **student_list)
 {
 	int out = 1;
 
+	(void) s;
 	while (out != 10)
 	{
 		printf("---------- Teacher : %s %s --------------\n", (*t)->name, (*t)->last_name);
@@ -60,6 +61,7 @@ void principal_cli(teacher **t, teacher **teacher_list, student **s, student **s
 {
 	int out = 1;
 
+	(void) s;
 	while (out != 10)
 	{
 		printf("---------- Mr Principal : %s %s --------------\n", (*t)->name, (*t)->last_name);
@@ -73,6 +75,9 @@ void principal_cli(teacher **t, teacher **teacher_list, student **s, student **s
 				break;
 			case 2:
 				list_teacher(NULL, *teacher_list);
+				break;
+			case 3:
+				principal_messaging_cli(t, teacher_list, student_list);
 				break;
 			case 4:
 				*student_list = add_struct_student(student_list);

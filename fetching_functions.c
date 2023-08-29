@@ -8,7 +8,6 @@
 */
 teacher *fetch_for_string_teacher(char *str, teacher *t)
 {
-	size_t i = 0;
 	teacher *current;
 
 	if (!t)
@@ -35,7 +34,6 @@ teacher *fetch_for_string_teacher(char *str, teacher *t)
 */
 student *fetch_for_string_student(char *str, student *s)
 {
-	size_t i = 0;
 	student *current;
 
 	if (!s || !str)

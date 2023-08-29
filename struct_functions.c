@@ -24,7 +24,12 @@ login_return *init_union(login_return *s_t)
 */
 student *init_struct_students(student *s)
 {
-	s = malloc(sizeof(student));
+	s = (student*) malloc(sizeof(student));
+	if (!s)
+	{
+		perror("error: init_struct_students: malloc");
+		exit(MALLOC_ERROR);
+	}
 	s = NULL;
 	return (s);
 }
@@ -48,6 +53,8 @@ teacher *init_struct_teachers(teacher *t)
 	strcpy(new_teacher->name, "Darghal");
 	strcpy(new_teacher->last_name, "Mohammed");
 	new_teacher->is_the_manager = true;
+	new_teacher->inbox = malloc(sizeof(char *));
+	new_teacher->inbox_sz = 1;
 	new_teacher->next = NULL;
 	return (new_teacher);
 }
@@ -66,7 +73,6 @@ void ask_student_info(student *s)
 	}
 	printf("NAME : ");scanf("%s", s->name);
 	printf("\nLAST NAME : ");scanf("%s", s->last_name);
-	fflush(stdin);
 	printf("\nBIRTH DATE (dd/mm/yyyy) : ");scanf("%s", s->birthdate);
 	printf("\nCNE: ");scanf("%s", s->CNE);
 	printf("\nPASSWORD : ");scanf("%s", s->password);
@@ -94,6 +100,8 @@ student *add_struct_student(student **s)
 	}
 	ask_student_info(new_student);
 	new_student->next = *s;
+	new_student->inbox = malloc(sizeof(char *));
+	new_student->inbox_sz = 1;
 	*s = new_student;
 	return (*s);
 }
@@ -134,6 +142,8 @@ teacher *add_struct_teacher(teacher **t)
 	}
 	ask_teacher_info(new_teacher);
 	new_teacher->next = *t;
+	new_teacher->inbox = malloc(sizeof(char *));
+	new_teacher->inbox_sz = 1;
 	*t = new_teacher;
 	return (*t);
 }
@@ -237,8 +247,12 @@ void modify_struct_student(student *s)
 	if (i)
 	{
 		system("clear");
-again:
-		printf("1- modify all infos\n2- modify notes\n3- modify name and last name\n3-modify CNE\n--->");scanf("%d", &j);
+		printf("1- modify all infos\n2- modify notes\n3- modify name and last name\n4-modify CNE\n--->");scanf("%d", &j);
+		while (j != 1 && j != 2 && j != 3 && j != 4)
+		{
+			print_sleep_clear("NOT A COMMAND", 1);
+			printf("1- modify all infos\n2- modify notes\n3- modify name and last name\n4-modify CNE\n--->");scanf("%d", &j);
+		}
 		switch (j)
 		{
 			case 1:
@@ -257,9 +271,6 @@ again:
 			case 4:
 				printf("CNE : ");scanf("%s", s->CNE);
 				break;
-			default:
-				print_sleep_clear("NOT A COMMAND", 1);
-				goto again;
 		}
 		print_sleep_clear("ALL DONE ..", 1);
 	}
@@ -321,7 +332,8 @@ void list_teacher(char *str, teacher *t)
 		perror("error: list_teacher: the list is null or empty");
 		exit(NULL_ERROR);
 	}
-cni:
+while (str)
+{
 	if (!strcmp(str, "no") || *str == 'n')
 	{
 		print_sleep_clear("OUT ..", 1);
@@ -342,7 +354,7 @@ cni:
 	}
 	print_sleep_clear("CNE DOESNT EXIST", 1);
 	str = list_all_teachers(t);
-	goto cni;
+}
 }
 
 /**
@@ -367,8 +379,12 @@ void modify_struct_teacher(teacher *t)
 	if (i)
 	{
 		system("clear");
-againn:
 		printf("1- modify all infos\n2- modify name and last name\n3-modify CNI\n--->");scanf("%d", &j);
+		while (j != 1 && j != 2 && j != 3)
+		{
+			print_sleep_clear("NOT A COMMAND", 1);
+			printf("1- modify all infos\n2- modify name and last name\n3-modify CNI\n--->");scanf("%d", &j);
+		}
 		switch (j)
 		{
 			case 1:
@@ -381,9 +397,6 @@ againn:
 			case 3:
 				printf("CNI : ");scanf("%s", t->CNI);
 				break;
-			default:
-				print_sleep_clear("NOT A COMMAND", 1);
-				goto againn;
 		}
 		print_sleep_clear("ALL DONE ..", 1);
 	}
@@ -406,7 +419,9 @@ void delete_student_struct(student **s)
         perror("error: delete_student_struct: struct may be empty");
         exit(NULL_ERROR);
     }
-againnn:
+	current = NULL;
+	while (!current)
+{
     printf("input the student CNE to delete from the platform, or type \"no\" or 'n' to return : ");
     scanf("%s", temp_cne);
     if (!strcmp(temp_cne, "no") || *temp_cne == 'n')
@@ -438,9 +453,7 @@ againnn:
         current = current->next;
     }
 
-    // If key was not present in linked list
-    if (current == NULL) goto againnn;
-
+}
     printf("found, are you sure to delete this student from the platform ? [Y, n] : ");
     scanf("%s", temp_cne);
     if (!strcmp(temp_cne, "no") || *temp_cne == 'n')

@@ -25,6 +25,7 @@ typedef struct student
 	float notes[4];
 	float balance;
 	char **inbox;
+	int inbox_sz;
 	struct student *next;
 } student;
 
@@ -37,6 +38,7 @@ typedef struct teacher
 	char password[9];
 	bool is_the_manager;
 	char **inbox;
+	int inbox_sz;
 	struct teacher *next;
 } teacher;
 
@@ -80,9 +82,9 @@ void list_teacher(char *, teacher *);
 void modify_struct_student(student *);
 void modify_struct_teacher(teacher *);
 void delete_student_struct(student **);
-
-
-
+void scream_to_school(teacher **, student **);
+void principal_messaging_cli(teacher **, teacher **, student **);
+void students_inbox(student *);
 
 
 
