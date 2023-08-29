@@ -21,8 +21,8 @@ void students_inbox(student *s)
 		printf("INBOX :\n");
 		while (current->inbox[i])
 		{
-			printf("--------------------------\n");
-			printf("message %d : %s\n", i++, current->inbox[i]);
+			printf("_____________________________________\n");
+			printf("%d)- %s\n", i++, current->inbox[i]);
 		}
 		printf("---> 1 to conitinue : ");scanf("%d", &i);
 		system("clear");

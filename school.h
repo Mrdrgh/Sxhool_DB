@@ -82,7 +82,7 @@ void list_teacher(char *, teacher *);
 void modify_struct_student(student *);
 void modify_struct_teacher(teacher *);
 void delete_student_struct(student **);
-void scream_to_school(teacher **, student **);
+void scream_to_school(teacher **, teacher **, student **, student **);
 void principal_messaging_cli(teacher **, teacher **, student **);
 void students_inbox(student *);
 
