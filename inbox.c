@@ -16,13 +16,13 @@ void students_inbox(student *s)
 	}
 	current = s;
 	system("clear");
-	if (current->inbox)
+	if (*current->inbox)
 	{
 		printf("INBOX :\n");
 		while (current->inbox[i])
 		{
 			printf("------------------------------------\n");
-			printf("%d)- %s\n", i++, current->inbox[i]);
+			printf("%d- %s\n", i++, current->inbox[i]);
 		}
 		printf("---> 1 to conitinue : ");scanf("%d", &i);
 		system("clear");
@@ -51,15 +51,15 @@ void teachers_inbox(teacher *t)
 	system("clear");
 	if (!t->is_the_manager)
 	{
-		if (current->inbox)
+		if (current->inbox[i])
 		{
 			printf("INBOX :\n");
 			while (current->inbox[i])
 			{
 				printf("-----------------------------------\n");
-				printf("%d)- %s\n", i++, current->inbox[i]);
+				printf("%d- %s\n", i++, current->inbox[i]);
 			}
-			printf("---> 1 to conitinue : ");scanf("%d", &i);
+			printf("\n---> 1 to conitinue : ");scanf("%d", &i);
 			system("clear");
 		}
 		else
@@ -69,13 +69,13 @@ void teachers_inbox(teacher *t)
 	}
 	else
 	{
-		if (current->inbox + 1)
+		if (current->inbox[0])
 		{
 			printf("INBOX :\n");
 			while (current->inbox[i])
 			{
 				printf("---------------------------------\n");
-				printf("%d)- %s\n", i++, current->inbox[i]);
+				printf("%d- %s\n", i++, current->inbox[i]);
 			}
 			printf("---> 1 to conitinue : ");scanf("%d", &i);
 			system("clear");

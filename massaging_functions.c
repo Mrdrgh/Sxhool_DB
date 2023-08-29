@@ -98,3 +98,109 @@ void whisper_to_teachers(teacher **teacher_list, teacher **t)
 	}
 	print_sleep_clear("MESSAGE SENT", 1);
 }
+
+/**
+ * send_msg_to_student - sends a message to a specific student
+ * @student_list: the students list
+ * @t: the teacher's struct (or manager)
+*/
+
+void send_msg_to_student(student **student_list, teacher **t)
+{
+	char sender[200], c, *message = NULL, temp_cne[11];
+	student *current;
+	size_t i = 0;
+
+	if (!*student_list)
+	{
+		perror("error: send_msg_to_student: struct may be empty");
+		exit(NULL_ERROR);
+	}
+	system("clear");
+
+	if ((*t)->is_the_manager)
+		sprintf(sender, "(Principal) %s %s: ", (*t)->name, (*t)->last_name);
+	else
+		sprintf(sender, "(Teacher) %s %s: ", (*t)->name, (*t)->last_name);
+
+againn:
+
+	printf("Input the student CNE to send a message to (or type 'no' or 'n' to cancel): ");scanf("%s", temp_cne);
+	if (!strcmp(temp_cne, "no") || *temp_cne == 'n')
+	{
+		print_sleep_clear("CANCELLED", 1);
+		return;
+	}
+	printf("The message : ");
+	while ((c = getchar()) != '\n' && c != EOF) { }
+	getline(&message, &i, stdin);
+
+	current = *student_list;
+	while (current)
+	{
+		if (!strcmp(current->CNE, temp_cne))
+		{
+			current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
+			current->inbox = realloc(current->inbox, ((current->inbox_sz) + 1) * sizeof(char *));
+			current->inbox_sz++;
+			print_sleep_clear("MESSAGE SENT", 1);
+			return;
+		}
+		current = current->next;
+	}
+	print_sleep_clear("CNE NOT EXISTING", 1);
+	goto againn;
+}
+
+/**
+ * send_msg_to_teacher - sends a message to a specific teacher
+ * @teacher_list: the students list
+ * @t: the pricipal struct
+*/
+
+void send_msg_to_teacher(teacher **teacher_list, teacher **t)
+{
+	char sender[200], c, *message = NULL, temp_cni[11];
+	teacher *current;
+	size_t i = 0;
+
+	if (!(*teacher_list)->next)
+	{
+		perror("error: send_msg_to_teacher: struct may be empty");
+		exit(NULL_ERROR);
+	}
+	system("clear");
+
+	if ((*t)->is_the_manager)
+		sprintf(sender, "(Principal) %s %s: ", (*t)->name, (*t)->last_name);
+	else
+		sprintf(sender, "(Teacher) %s %s: ", (*t)->name, (*t)->last_name);
+
+againn:
+
+	printf("Input the teacher CNI to send a message to (or type 'no' or 'n' to cancel): ");scanf("%s", temp_cni);
+	if (!strcmp(temp_cni, "no") || *temp_cni == 'n')
+	{
+		print_sleep_clear("CANCELLED", 1);
+		return;
+	}
+	printf("The message : ");
+	while ((c = getchar()) != '\n' && c != EOF) { }
+	getline(&message, &i, stdin);
+
+	current = *teacher_list;
+	while (current)
+	{
+		if (!strcmp(current->CNI, temp_cni))
+		{
+			current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
+			current->inbox = realloc(current->inbox, ((current->inbox_sz) + 1) * sizeof(char *));
+			current->inbox_sz++;
+			print_sleep_clear("MESSAGE SENT", 1);
+			return;
+		}
+		current = current->next;
+	}
+	print_sleep_clear("CNE NOT EXISTING", 1);
+	goto againn;
+}

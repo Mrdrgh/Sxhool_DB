@@ -48,6 +48,9 @@ void teacher_cli(teacher **t, student **s, student **student_list)
 			case 5:
 				*student_list = add_struct_student(student_list);
 				break;
+			case 6:
+				delete_student_struct(student_list);	
+				break;
 			default:
 				system("clear");
 		}
