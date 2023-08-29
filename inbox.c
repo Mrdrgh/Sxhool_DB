@@ -21,7 +21,7 @@ void students_inbox(student *s)
 		printf("INBOX :\n");
 		while (current->inbox[i])
 		{
-			printf("_____________________________________\n");
+			printf("------------------------------------\n");
 			printf("%d)- %s\n", i++, current->inbox[i]);
 		}
 		printf("---> 1 to conitinue : ");scanf("%d", &i);
@@ -30,5 +30,59 @@ void students_inbox(student *s)
 	else
 	{
 		print_sleep_clear("EMPTY INBOX", 1);
+	}
+}
+
+/**
+ * teachers_inbox - invocs the inbox
+ * @t: the struct of the teacher
+*/
+
+void teachers_inbox(teacher *t)
+{
+	int i = 0, j = 0;
+	teacher *current;
+	if (!t)
+	{
+		perror("error: teachers_inbox:");
+		exit(NULL_ERROR);
+	}
+	current = t;
+	system("clear");
+	if (!t->is_the_manager)
+	{
+		if (current->inbox)
+		{
+			printf("INBOX :\n");
+			while (current->inbox[i])
+			{
+				printf("-----------------------------------\n");
+				printf("%d)- %s\n", i++, current->inbox[i]);
+			}
+			printf("---> 1 to conitinue : ");scanf("%d", &i);
+			system("clear");
+		}
+		else
+		{
+			print_sleep_clear("EMPTY INBOX", 1);
+		}
+	}
+	else
+	{
+		if (current->inbox + 1)
+		{
+			printf("INBOX :\n");
+			while (current->inbox[i])
+			{
+				printf("---------------------------------\n");
+				printf("%d)- %s\n", i++, current->inbox[i]);
+			}
+			printf("---> 1 to conitinue : ");scanf("%d", &i);
+			system("clear");
+		}
+		else
+		{
+			print_sleep_clear("EMPTY INBOX", 1);
+		}
 	}
 }

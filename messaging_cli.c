@@ -34,6 +34,10 @@ again:
 			scream_to_school(teacher_list, t, student_list, NULL);
 			goto again;
 			break;
+		case 2:
+			whisper_to_teachers(teacher_list, t);
+			goto again;
+			break;
 	}
 
 	system("clear");

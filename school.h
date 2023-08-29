@@ -83,8 +83,10 @@ void modify_struct_student(student *);
 void modify_struct_teacher(teacher *);
 void delete_student_struct(student **);
 void scream_to_school(teacher **, teacher **, student **, student **);
+void whisper_to_teachers(teacher **teacher_list, teacher **t);
 void principal_messaging_cli(teacher **, teacher **, student **);
 void students_inbox(student *);
+void teachers_inbox(teacher *);
 
 
 

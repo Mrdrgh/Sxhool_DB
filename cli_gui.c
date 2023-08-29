@@ -32,6 +32,7 @@ void teacher_cli(teacher **t, student **s, student **student_list)
 {
 	int out = 1;
 
+	teachers_inbox(*t);
 	(void) s;
 	while (out != 10)
 	{
@@ -61,6 +62,7 @@ void principal_cli(teacher **t, teacher **teacher_list, student **s, student **s
 {
 	int out = 1;
 
+	teachers_inbox(*t);
 	(void) s;
 	while (out != 10)
 	{
