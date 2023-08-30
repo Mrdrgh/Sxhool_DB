@@ -29,8 +29,8 @@ void scream_to_school(teacher **teacher_list, teacher **t,student **student_list
 	{
 		while (s_current)
 		{
-			s_current->inbox[s_current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
 			s_current->inbox = realloc(s_current->inbox, ((s_current->inbox_sz) + 1) * sizeof(char *));
+			s_current->inbox[s_current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
 			s_current->inbox_sz++;
 			s_current = s_current->next;
 		}
@@ -46,8 +46,8 @@ void scream_to_school(teacher **teacher_list, teacher **t,student **student_list
 		{
 			if (!t_current->is_the_manager)
 			{
-				t_current->inbox[t_current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));;
 				t_current->inbox = realloc(t_current->inbox, ((t_current->inbox_sz) + 1) * sizeof(char *));
+				t_current->inbox[t_current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
 				t_current->inbox_sz++;
 			}
 			t_current = t_current->next;
@@ -89,8 +89,9 @@ void whisper_to_teachers(teacher **teacher_list, teacher **t)
 		{
 			if (!current->is_the_manager)
 			{
-				current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));;
 				current->inbox = realloc(current->inbox, ((current->inbox_sz) + 1) * sizeof(char *));
+				current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));;
+
 				current->inbox_sz++;
 			}
 			current = current->next;
@@ -140,8 +141,9 @@ againn:
 	{
 		if (!strcmp(current->CNE, temp_cne))
 		{
-			current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
 			current->inbox = realloc(current->inbox, ((current->inbox_sz) + 1) * sizeof(char *));
+			current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
+
 			current->inbox_sz++;
 			print_sleep_clear("MESSAGE SENT", 1);
 			return;
@@ -198,8 +200,9 @@ againn:
 	{
 		if (!strcmp(current->CNI, temp_cni))
 		{
-			current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
 			current->inbox = realloc(current->inbox, ((current->inbox_sz) + 1) * sizeof(char *));
+			current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
+			
 			current->inbox_sz++;
 			print_sleep_clear("MESSAGE SENT", 1);
 			return;
@@ -237,8 +240,9 @@ void send_msg_to_principal(teacher **teacher_list, teacher **t)
 	{
 		if (current->is_the_manager)
 		{
-			current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
 			current->inbox = realloc(current->inbox, ((current->inbox_sz) + 1) * sizeof(char *));
+			current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
+		
 			current->inbox_sz++;
 			print_sleep_clear("MESSAGE SENT", 1);
 			return;

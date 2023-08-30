@@ -11,10 +11,14 @@ void student_cli(student *s)
 	while (out != 2)
 	{
 		printf("----------- Student : %s %s ----------\n", s->name, s->last_name);
-		printf("1-output my informations\n2-disconnect\n---> ");scanf("%d", &out);
+		printf("1- output my informations\n2- exti\n---> ");scanf("%d", &out);
 		switch (out)
 		{
 			case 1:
+				printf("-------------------------\n");
+				printf("NAME: %s\nLAST NAME: %s\n", s->name, s->last_name);
+				printf("CNE: %s\nPASSWORD: %s\n", s->CNE, s->password);
+				printf("NOTE 1: %f\nNOTE 2: %f\nNOTE 3: %f\nNOTE 4: %f\n", s->notes[0], s->notes[1], s->notes[2], s->notes[3]);
 				pause_clear();
 				break;
 			default:
@@ -52,7 +56,7 @@ void teacher_cli(teacher **t, teacher **teacher_list, student **s, student **stu
 				*student_list = add_struct_student(student_list);
 				break;
 			case 6:
-				delete_student_struct(student_list);	
+				delete_student_struct(student_list);
 				break;
 			default:
 				system("clear");
