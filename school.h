@@ -93,6 +93,7 @@ void teachers_inbox(teacher *);
 void download_struct_student(student **);
 void download_struct_teacher(teacher **);
 student *load_struct_student();
+teacher *load_struct_teacher();
 void download_student_inbox(char *str, char *dest_cne, int time);
 void download_teacher_inbox(char *str, char *dest_cni, int time);
 #endif

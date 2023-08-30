@@ -34,3 +34,38 @@ student *load_struct_student()
     fclose(fp);
     return (new_list);
 }
+
+/**
+ * load_struct_teacher - load the struct of the teachers, this function will be called once and for all
+ * in the beginning of the program
+ * 
+ * Return: the newly created linked list
+*/
+
+teacher *load_struct_teacher()
+{
+    FILE *fp = NULL;
+    teacher *new_list = NULL;
+    teacher *current = NULL;
+    teacher *temp = NULL;
+
+    new_list = init_struct_teachers(new_list);
+    fp = fopen("./users_data/teachers.dat", "rb");
+    if (fp == NULL) {
+        perror("error: load_struct_teacher: could not open file");
+        exit(2);
+    }
+    while ((temp = malloc(sizeof(teacher))) && fread(temp, sizeof(teacher), 1, fp) > 0)
+    {
+        if (new_list == NULL) {
+            new_list = temp;
+            current = new_list;
+        } else {
+            current->next = temp;
+            current = current->next;
+        }
+        temp = NULL;
+    }
+    fclose(fp);
+    return (new_list);
+}
