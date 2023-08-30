@@ -6,6 +6,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <unistd.h>
+#include <fcntl.h>
 
 #define FETCH_FOR_STRING_ERROR 10
 #define MALLOC_ERROR 11
@@ -14,6 +15,7 @@
 #define NULL_ERROR 14
 #define MAIN_ERROR 15
 #define NOT_FOUND_ERROR 16
+#define FILE_IO_ERROR 17
 #define INIT_STRUCT_STUDENT {NULL, NULL, 0, NULL, NULL, false, NULL, 0, NULL, NULL}
 typedef struct student
 {
@@ -92,8 +94,8 @@ void principal_messaging_cli(teacher **, teacher **, student **);
 void teacher_messaging_cli(teacher **, teacher **, student **);
 void students_inbox(student *);
 void teachers_inbox(teacher *);
-
-
+void download_struct_student(student **);
+student *load_struct_student();
 
 
 #endif

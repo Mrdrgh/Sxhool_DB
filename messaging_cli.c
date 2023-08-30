@@ -32,6 +32,7 @@ agai:
 	{
 		case 1:
 			scream_to_school(teacher_list, t, student_list, NULL);
+			download_struct_student(student_list);
 			goto agai;
 			break;
 		case 2:
@@ -40,6 +41,7 @@ agai:
 			break;
 		case 3:
 			send_msg_to_student(student_list, t);
+			download_struct_student(student_list);
 			goto agai;
 			break;
 		case 4:
@@ -82,6 +84,7 @@ againnnn:
 	{
 		case 1:
 			send_msg_to_student(student_list, t);
+			download_struct_student(student_list);
 			goto againnnn;
 			break;
 		case 2:

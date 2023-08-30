@@ -13,7 +13,7 @@ int main(int ac, char **av)
 	login_return *s_t = init_union(s_t); // by default in ISNONE//
 	teacher *t = init_struct_teachers(t);
 
-	s = init_struct_students(s);
+	s = load_struct_student();
 	while ((s_t = login(s, t, s_t))->student_or_teacher)
 	{
 		if (s_t->student_or_teacher == 1)

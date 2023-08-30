@@ -78,12 +78,64 @@ student *add_struct_student(student *s)
 	s = new_student;
 	return (s);
 }
+void download_struct_student(student **student_list)
+{
+	FILE *fp = fopen("students.txt", "wr");
+	student *current;
+
+	if (!*student_list)
+	{
+		perror("error: struct is empty");
+		exit(1);
+	}
+	current = *student_list;
+	while (current)
+	{
+		fwrite(current, 1, sizeof(student), fp);
+		current = current->next;
+	}
+	fclose(fp);
+
+}
+student *load_struct_student()
+{
+    FILE *fp = NULL;
+    student *new_list = NULL;
+    student *current = NULL;
+    student *temp = NULL;
+
+    new_list = init_struct_students(new_list);
+    fp = fopen("students.txt", "r");
+    if (fp == NULL) {
+        perror("error: load_struct_student: could not open file");
+        exit(2);
+    }
+    while ((temp = malloc(sizeof(student))) && fread(temp, sizeof(student), 1, fp) > 0)
+    {
+        if (new_list == NULL) {
+            new_list = temp;
+            current = new_list;
+        } else {
+            current->next = temp;
+            current = current->next;
+        }
+        temp = NULL;
+    }
+    fclose(fp);
+    return (new_list);
+}
+
+
+
 int main(void)
 {
-	student *s = init_struct_students(s);
-	s = add_struct_student(s);
-	s = add_struct_student(s);
+	student *s = load_struct_student();
+
 	student *current = s;
+	if (!current)
+	{
+		printf("null\n");
+	}
 	while (current)
 	{
 		printf("%s \t %s \n", current->name, current->last_name);
