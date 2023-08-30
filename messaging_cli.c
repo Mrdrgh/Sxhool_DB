@@ -82,7 +82,6 @@ againnnn:
 	{
 		case 1:
 			send_msg_to_student(student_list, t);
-			download_struct_student(student_list);
 			goto againnnn;
 			break;
 		case 2:

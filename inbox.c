@@ -9,14 +9,16 @@ void students_inbox(student *s)
 {
 	FILE *fp;
 	int i = 1, j = 0, k = 0;
-	char message[10000];
+	char message[10000], filepath[1024];
 
 	if (!s)
 	{
 		perror("error: students_inbox: the struct is empty");
 		exit(NULL_ERROR);
 	}
-	fp = fopen(strcat("./students_inbox/", s->CNE), "r");
+	sprintf(filepath, "./students_inbox/%s", s->CNE);
+	if (!(fp = fopen(filepath, "r+")))
+		fp = fopen(filepath, "w+");
 
 	if (!fp)
 	{
@@ -24,16 +26,11 @@ void students_inbox(student *s)
 		exit(FILE_IO_ERROR);
 	}
 	printf("INBOX : \n");
-	while (fscanf(fp, "%s\n", message) > 0)
+	while (fscanf(fp, "%s\n", message) > 0 && printf("%d-", i++))
 	{
-		printf("%d- ", i++);
-		while (message[k] != '\0')
+		printf("%s", message);
+		if (j > 12)
 		{
-			j = 0;
-			while (putchar(message[k]) && j < 50)
-			{
-				k++; j++;
-			}
 			printf("\n");
 		}
 	}
@@ -66,7 +63,8 @@ void teachers_inbox(teacher *t)
 	{
 		sprintf(filepath, "./teachers_inbox/%s", t->CNI);
 	}
-	fp = fopen(filepath, "w+");
+	if (!(fp = fopen(filepath, "r+")))
+		fp = fopen(filepath, "w+");
 
 	if (!fp)
 	{

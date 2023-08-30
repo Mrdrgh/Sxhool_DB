@@ -137,7 +137,8 @@ againn:
 	{
 		if (!strcmp(current->CNE, temp_cne))
 		{
-			full_msg = strcat(strdup(sender), strdup(message));
+			full_msg = malloc(sizeof(char) * (strlen(sender) + strlen(message) + 1));
+			sprintf(full_msg, "%s%s", sender, message);
 			download_student_inbox(full_msg, current->CNE, 1);
 			free(full_msg);
 			print_sleep_clear("MESSAGE SENT", 1);

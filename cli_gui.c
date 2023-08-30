@@ -90,7 +90,6 @@ void principal_cli(teacher **t, teacher **teacher_list, student **s, student **s
 				break;
 			case 3:
 				principal_messaging_cli(t, teacher_list, student_list);
-				download_struct_student(student_list);
 				break;
 			case 4:
 				*student_list = add_struct_student(student_list);
