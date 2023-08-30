@@ -81,7 +81,7 @@ void download_student_inbox(char *str, char *dest_cne, int time)
 void download_struct_teacher(teacher **teacher_list)
 {
 	FILE *fp = fopen("./users_data/teachers.dat", "wb");
-	student *current;
+	teacher *current;
 
 	if (!*teacher_list)
 	{
