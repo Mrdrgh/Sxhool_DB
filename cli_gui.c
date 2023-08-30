@@ -54,9 +54,11 @@ void teacher_cli(teacher **t, teacher **teacher_list, student **s, student **stu
 				break;
 			case 5:
 				*student_list = add_struct_student(student_list);
+				download_struct_student(student_list);
 				break;
 			case 6:
 				delete_student_struct(student_list);
+				download_struct_student(student_list);
 				break;
 			default:
 				system("clear");
@@ -97,6 +99,7 @@ void principal_cli(teacher **t, teacher **teacher_list, student **s, student **s
 				break;
 			case 5:
 				*teacher_list = add_struct_teacher(teacher_list);
+				download_struct_teacher(teacher_list);
 				break;
 			case 6:
 				delete_student_struct(student_list);

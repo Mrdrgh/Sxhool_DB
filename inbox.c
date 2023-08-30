@@ -26,7 +26,7 @@ void students_inbox(student *s)
 		exit(FILE_IO_ERROR);
 	}
 	printf("INBOX : \n");
-	while (fscanf(fp, "%s\n", message) > 0 && printf("%d-", i++))
+	while (fscanf(fp, "%[^\n]", message) > 0 && printf("---------------\n") && printf("%d- ", i++))
 	{
 		printf("%s", message);
 		if (j > 12)
@@ -34,7 +34,7 @@ void students_inbox(student *s)
 			printf("\n");
 		}
 	}
-	printf("\ntype 1 to continue : ");scanf("%d", &i);
+	printf("\n\ntype 1 to continue : ");scanf("%d", &i);
 	fclose(fp);
 	system("clear");
 }
@@ -72,16 +72,11 @@ void teachers_inbox(teacher *t)
 		exit(FILE_IO_ERROR);
 	}
 	printf("INBOX : \n");
-	while (fscanf(fp, "%s\n", message) > 0)
+	while (fscanf(fp, "%[^\n]", message) > 0 && printf("---------------\n") && printf("%d- ", i++))
 	{
-		printf("%d- ", i++);
-		while (message[k] != '\0')
+		printf("%s", message);
+		if (j > 12)
 		{
-			j = 0;
-			while (putchar(message[k]) && j < 50)
-			{
-				k++; j++;
-			}
 			printf("\n");
 		}
 	}
