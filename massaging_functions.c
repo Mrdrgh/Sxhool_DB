@@ -12,10 +12,10 @@ void scream_to_school(teacher **teacher_list, teacher **t,student **student_list
 {
 	student *s_current;
 	teacher *t_current;
-	char *message = NULL, c, sender[200];
+	char *message = NULL, *full_msg = NULL, c, sender[200];
 	size_t i = 0;
 
-	if (!teacher_list && !student_list)
+	if (!*teacher_list && !*student_list)
 	{
 		perror("error: scream_to_school: structs may be empty");
 		exit(NULL_ERROR);
@@ -29,9 +29,9 @@ void scream_to_school(teacher **teacher_list, teacher **t,student **student_list
 	{
 		while (s_current)
 		{
-			s_current->inbox = realloc(s_current->inbox, ((s_current->inbox_sz) + 1) * sizeof(char *));
-			s_current->inbox[s_current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
-			s_current->inbox_sz++;
+			full_msg = strcat(strdup(sender), strdup(message));
+			download_student_inbox(full_msg, s_current->CNE, 0);
+			free(full_msg);
 			s_current = s_current->next;
 		}
 	}
@@ -46,9 +46,9 @@ void scream_to_school(teacher **teacher_list, teacher **t,student **student_list
 		{
 			if (!t_current->is_the_manager)
 			{
-				t_current->inbox = realloc(t_current->inbox, ((t_current->inbox_sz) + 1) * sizeof(char *));
-				t_current->inbox[t_current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
-				t_current->inbox_sz++;
+				full_msg = strcat(strdup(sender), strdup(message));
+				download_teacher_inbox(full_msg, t_current->CNI, 0);
+				free(full_msg);
 			}
 			t_current = t_current->next;
 		}
@@ -69,7 +69,7 @@ void scream_to_school(teacher **teacher_list, teacher **t,student **student_list
 void whisper_to_teachers(teacher **teacher_list, teacher **t)
 {
 	teacher *current;
-	char sender[200], c, *message = NULL;
+	char sender[200], c, *message = NULL, *full_msg;
 	size_t i = 0;
 
 	system("clear");	
@@ -85,17 +85,13 @@ void whisper_to_teachers(teacher **teacher_list, teacher **t)
 	current = *teacher_list;
 	while (current)
 	{
-		while (current)
+		if (!current->is_the_manager)
 		{
-			if (!current->is_the_manager)
-			{
-				current->inbox = realloc(current->inbox, ((current->inbox_sz) + 1) * sizeof(char *));
-				current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));;
-
-				current->inbox_sz++;
-			}
-			current = current->next;
+			full_msg = strcat(strdup(sender), strdup(message));
+			download_teacher_inbox(full_msg, current->CNI, 0);
+			free(full_msg);
 		}
+		current = current->next;
 	}
 	print_sleep_clear("MESSAGE SENT", 1);
 }
@@ -108,7 +104,7 @@ void whisper_to_teachers(teacher **teacher_list, teacher **t)
 
 void send_msg_to_student(student **student_list, teacher **t)
 {
-	char sender[200], c, *message = NULL, temp_cne[11];
+	char sender[200], c, *message = NULL, temp_cne[11], *full_msg = NULL;
 	student *current;
 	size_t i = 0;
 
@@ -141,10 +137,9 @@ againn:
 	{
 		if (!strcmp(current->CNE, temp_cne))
 		{
-			current->inbox = realloc(current->inbox, ((current->inbox_sz) + 1) * sizeof(char *));
-			current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
-
-			current->inbox_sz++;
+			full_msg = strcat(strdup(sender), strdup(message));
+			download_student_inbox(full_msg, current->CNE, 1);
+			free(full_msg);
 			print_sleep_clear("MESSAGE SENT", 1);
 			return;
 		}
@@ -162,7 +157,7 @@ againn:
 
 void send_msg_to_teacher(teacher **teacher_list, teacher **t)
 {
-	char sender[200], c, *message = NULL, temp_cni[11];
+	char sender[200], c, *message = NULL, temp_cni[11], *full_msg = NULL;
 	teacher *current;
 	size_t i = 0;
 
@@ -200,10 +195,9 @@ againn:
 	{
 		if (!strcmp(current->CNI, temp_cni))
 		{
-			current->inbox = realloc(current->inbox, ((current->inbox_sz) + 1) * sizeof(char *));
-			current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
-			
-			current->inbox_sz++;
+			full_msg = strcat(strdup(sender), strdup(message));
+			download_teacher_inbox(full_msg, current->CNI, 1);
+			free(full_msg);
 			print_sleep_clear("MESSAGE SENT", 1);
 			return;
 		}
@@ -221,7 +215,7 @@ againn:
 
 void send_msg_to_principal(teacher **teacher_list, teacher **t)
 {
-	char sender[200], c, *message = NULL;
+	char sender[200], c, *message = NULL, *full_msg = NULL;
 	size_t i = 0;
 	teacher *current;
 
@@ -240,10 +234,9 @@ void send_msg_to_principal(teacher **teacher_list, teacher **t)
 	{
 		if (current->is_the_manager)
 		{
-			current->inbox = realloc(current->inbox, ((current->inbox_sz) + 1) * sizeof(char *));
-			current->inbox[current->inbox_sz - 1] = strcat(strdup(sender),strdup(message));
-		
-			current->inbox_sz++;
+			full_msg = strcat(strdup(sender), strdup(message));
+			download_teacher_inbox(full_msg, "The_principal", 0);
+			free(full_msg);
 			print_sleep_clear("MESSAGE SENT", 1);
 			return;
 		}

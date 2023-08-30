@@ -7,30 +7,39 @@
 
 void students_inbox(student *s)
 {
-	int i = 0, j = 0;
-	student *current;
+	FILE *fp;
+	int i = 1, j = 0, k = 0;
+	char message[10000];
+
 	if (!s)
 	{
-		perror("error: students_inbox:");
+		perror("error: students_inbox: the struct is empty");
 		exit(NULL_ERROR);
 	}
-	current = s;
-	system("clear");
-	if (*current->inbox)
+	fp = fopen(strcat("./students_inbox/", s->CNE), "r");
+
+	if (!fp)
 	{
-		printf("INBOX :\n");
-		while (current->inbox[i])
+		perror("error: students_inbox: file path not recognized");
+		exit(FILE_IO_ERROR);
+	}
+	printf("INBOX : \n");
+	while (fscanf(fp, "%s\n", message) > 0)
+	{
+		printf("%d- ", i++);
+		while (message[k] != '\0')
 		{
-			printf("------------------------------------\n");
-			printf("%d- %s\n", i++, current->inbox[i]);
+			j = 0;
+			while (putchar(message[k]) && j < 50)
+			{
+				k++; j++;
+			}
+			printf("\n");
 		}
-		printf("---> 1 to conitinue : ");scanf("%d", &i);
-		system("clear");
 	}
-	else
-	{
-		print_sleep_clear("EMPTY INBOX", 1);
-	}
+	printf("\ntype 1 to continue : ");scanf("%d", &i);
+	fclose(fp);
+	system("clear");
 }
 
 /**
@@ -40,49 +49,45 @@ void students_inbox(student *s)
 
 void teachers_inbox(teacher *t)
 {
-	int i = 0, j = 0;
-	teacher *current;
+	FILE *fp;
+	int i = 1, j = 0, k = 0;
+	char *message = malloc(sizeof(char ) * 10000), filepath[1024];
+
 	if (!t)
 	{
-		perror("error: teachers_inbox:");
+		perror("error: teachers_inbox: the struct is empty");
 		exit(NULL_ERROR);
 	}
-	current = t;
-	system("clear");
-	if (!t->is_the_manager)
+	if (t->is_the_manager)
 	{
-		if (current->inbox[i])
-		{
-			printf("INBOX :\n");
-			while (current->inbox[i])
-			{
-				printf("-----------------------------------\n");
-				printf("%d- %s\n", i++, current->inbox[i]);
-			}
-			printf("\n---> 1 to conitinue : ");scanf("%d", &i);
-			system("clear");
-		}
-		else
-		{
-			print_sleep_clear("EMPTY INBOX", 1);
-		}
+		sprintf(filepath, "./teachers_inbox/The_principal");
 	}
 	else
 	{
-		if (current->inbox[0])
+		sprintf(filepath, "./teachers_inbox/%s", t->CNI);
+	}
+	fp = fopen(filepath, "w+");
+
+	if (!fp)
+	{
+		perror("error: teachers_inbox: file path not recognized");
+		exit(FILE_IO_ERROR);
+	}
+	printf("INBOX : \n");
+	while (fscanf(fp, "%s\n", message) > 0)
+	{
+		printf("%d- ", i++);
+		while (message[k] != '\0')
 		{
-			printf("INBOX :\n");
-			while (current->inbox[i])
+			j = 0;
+			while (putchar(message[k]) && j < 50)
 			{
-				printf("---------------------------------\n");
-				printf("%d- %s\n", i++, current->inbox[i]);
+				k++; j++;
 			}
-			printf("---> 1 to conitinue : ");scanf("%d", &i);
-			system("clear");
-		}
-		else
-		{
-			print_sleep_clear("EMPTY INBOX", 1);
+			printf("\n");
 		}
 	}
+	printf("\ntype 1 to continue : ");scanf("%d", &i);
+	fclose(fp);
+	system("clear");
 }

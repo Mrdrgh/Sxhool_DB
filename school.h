@@ -27,8 +27,6 @@ typedef struct student
 	bool haspaid;
 	float notes[4];
 	float balance;
-	char **inbox;
-	int inbox_sz;
 	struct student *next;
 } student;
 
@@ -40,8 +38,6 @@ typedef struct teacher
 	char CNI[8];
 	char password[9];
 	bool is_the_manager;
-	char **inbox;
-	int inbox_sz;
 	struct teacher *next;
 } teacher;
 
@@ -95,7 +91,8 @@ void teacher_messaging_cli(teacher **, teacher **, student **);
 void students_inbox(student *);
 void teachers_inbox(teacher *);
 void download_struct_student(student **);
+void download_struct_teacher(teacher **);
 student *load_struct_student();
-
-
+void download_student_inbox(char *str, char *dest_cne, int time);
+void download_teacher_inbox(char *str, char *dest_cni, int time);
 #endif

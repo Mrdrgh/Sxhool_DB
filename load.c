@@ -22,8 +22,6 @@ student *load_struct_student()
     }
     while ((temp = malloc(sizeof(student))) && fread(temp, sizeof(student), 1, fp) > 0)
     {
-		temp->inbox = malloc(sizeof(char *));
-		temp->inbox_sz = 1;
         if (new_list == NULL) {
             new_list = temp;
             current = new_list;

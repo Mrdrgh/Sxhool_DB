@@ -53,8 +53,6 @@ teacher *init_struct_teachers(teacher *t)
 	strcpy(new_teacher->name, "Darghal");
 	strcpy(new_teacher->last_name, "Mohammed");
 	new_teacher->is_the_manager = true;
-	new_teacher->inbox = malloc(sizeof(char *));
-	new_teacher->inbox_sz = 1;
 	new_teacher->next = NULL;
 	return (new_teacher);
 }
@@ -100,8 +98,6 @@ student *add_struct_student(student **s)
 	}
 	ask_student_info(new_student);
 	new_student->next = *s;
-	new_student->inbox = malloc(sizeof(char *));
-	new_student->inbox_sz = 1;
 	*s = new_student;
 	return (*s);
 }
@@ -142,8 +138,6 @@ teacher *add_struct_teacher(teacher **t)
 	}
 	ask_teacher_info(new_teacher);
 	new_teacher->next = *t;
-	new_teacher->inbox = malloc(sizeof(char *));
-	new_teacher->inbox_sz = 1;
 	*t = new_teacher;
 	return (*t);
 }
