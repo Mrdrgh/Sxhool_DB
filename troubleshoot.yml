@@ -4,142 +4,26 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include <stdlib.h>
-typedef struct student
-{
-	char name[10];
-	char last_name[10];
-	char CNE[11];
-	char password[9];
-	char birthdate[11];
-	bool haspaid;
-	float notes[4];
-	float balance;
-	char **inbox;
-	struct student *next;
-} student;
-void ask_student_info(student *s)
-{
-	int i = 0;
+#include <ctype.h>
 
-	if (!s)
-	{
-		perror("error: ask_student_info (null) is found");
-		exit(11);
-	}
-	printf("NAME : ");scanf("%s", s->name);
-	printf("\nLAST NAME : ");scanf("%s", s->last_name);
-	printf("\nBIRTH DATE (dd/mm/yyyy) : ");scanf("%s", s->birthdate);
-	printf("\nCNE: ");scanf("%s", s->CNE);
-	printf("\nPASSWORD : ");scanf("%s", s->password);
-	while (i < 4)
-	{
-		printf("\nNOTE %d: ", i);scanf("%f", &s->notes[i++]);
-	}
-	print_sleep_clear("\nALL DONE..", 1);
-}
-void sleep_clear(int sleep_duration)
-{
-	sleep(sleep_duration);
-	system("clear");
-}
-void print_sleep_clear(const char *prompt, int sleep_duration)
-{
-	printf("%s", prompt);
-	sleep_clear(sleep_duration);
-}
-void _pause(void)
-{
-	printf("tap on any key to continue :");
-	getchar();
-}
-void pause_clear(void)
-{
-	_pause();
-	fflush(stdout);
-	system("clear");
-}
-student *init_struct_students(student *s)
-{
-	s = malloc(sizeof(student));
-	s = NULL;
-	return (s);
-}
-student *add_struct_student(student *s)
-{
-	student *new_student = malloc(sizeof(student));
 
-	if (!new_student)
-	{
-		perror("error: add_struct_student");
-		exit(1);
-	}
-	ask_student_info(new_student);
-	new_student->next = s;
-	s = new_student;
-	return (s);
-}
-void download_struct_student(student **student_list)
-{
-	FILE *fp = fopen("students.txt", "wr");
-	student *current;
-
-	if (!*student_list)
-	{
-		perror("error: struct is empty");
-		exit(1);
-	}
-	current = *student_list;
-	while (current)
-	{
-		fwrite(current, 1, sizeof(student), fp);
-		current = current->next;
-	}
-	fclose(fp);
-
-}
-student *load_struct_student()
-{
-    FILE *fp = NULL;
-    student *new_list = NULL;
-    student *current = NULL;
-    student *temp = NULL;
-
-    new_list = init_struct_students(new_list);
-    fp = fopen("students.txt", "r");
-    if (fp == NULL) {
-        perror("error: load_struct_student: could not open file");
-        exit(2);
-    }
-    while ((temp = malloc(sizeof(student))) && fread(temp, sizeof(student), 1, fp) > 0)
-    {
-        if (new_list == NULL) {
-            new_list = temp;
-            current = new_list;
-        } else {
-            current->next = temp;
-            current = current->next;
+char * rot13(char *s) {
+	char *p =s;
+    while (*s) {
+        if (isalpha(*s)) {
+            if ((tolower(*s) - 'a') < 13)
+                *s += 13;
+            else
+                *s -= 13;
         }
-        temp = NULL;
+        s++;
     }
-    fclose(fp);
-    return (new_list);
+	return (p);
 }
-
-
 
 int main(void)
 {
-	student *s = load_struct_student();
-
-	student *current = s;
-	if (!current)
-	{
-		printf("null\n");
-	}
-	while (current)
-	{
-		printf("%s \t %s \n", current->name, current->last_name);
-		current = current->next;
-	}
+	char p[50] = "arkg_gvzr_V'yy_gel_2_ebhaqf_bs_ebg13_nSkgmDJE";
+	printf("%s", rot13(p));
 	return (0);
 }
