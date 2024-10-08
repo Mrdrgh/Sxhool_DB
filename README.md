@@ -3,7 +3,7 @@ a small implementation of a school database containing teachers, students and th
 that is based on singly linked lists, file_io, variadic functions and many other basic concepts, 
 you can feed the database of the program by doing : <br>``` echo $file_name | ./program_name```
 the file name is the ```teachers.dat``` file that contains the principal.<br>
-By default, the principal login (cni) is FC65138 and password is "password", you can change them
+By default, the principal login (cni) is "login" and password is "password", you can change them
 by changing the source code , in the file : ```struct_functions.c``` > ```init_struct_teachers```.
 
 ## functionnalities
