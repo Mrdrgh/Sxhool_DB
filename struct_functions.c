@@ -48,7 +48,7 @@ teacher *init_struct_teachers(teacher *t)
 		exit(MALLOC_ERROR);
 	}
 	strcpy(new_teacher->birthdate, "24/7/2003");
-	strcpy(new_teacher->CNI, "FC65138");
+	strcpy(new_teacher->CNI, "login");
 	strcpy(new_teacher->password, "password");
 	strcpy(new_teacher->name, "Darghal");
 	strcpy(new_teacher->last_name, "Mohammed");
